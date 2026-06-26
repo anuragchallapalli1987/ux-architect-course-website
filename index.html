@@ -1,0 +1,2828 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Anurag Challapalli | Principal UX Architect Learning Hub</title>
+  <meta name="description" content="Personalized Coursera-style learning system to crack Principal UX Architect and UX Director roles, based on 16+ years of enterprise healthcare experience.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,500;0,9..144,700;0,9..144,900;1,9..144,300;1,9..144,500;1,9..144,700&family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0A0C12;
+      --bg-card: #10131C;
+      --bg-elev: #161B28;
+      --bg-high: #1E2436;
+      --border: #252C3F;
+      --border2: #333D58;
+
+      --text: #F0EEF8;
+      --text-sec: #8D95AE;
+      --text-mu: #545E78;
+
+      --indigo: #818CF8;
+      --indigo-s: rgba(129, 140, 248, 0.08);
+      --indigo-b: rgba(129, 140, 248, 0.18);
+      --gold: #C9A84C;
+      --gold-s: rgba(201, 168, 76, 0.08);
+      --gold-b: rgba(201, 168, 76, 0.18);
+      
+      --teal: #2DD4BF;
+      --teal-s: rgba(45, 212, 191, 0.06);
+      --rose: #FB7185;
+      --rose-s: rgba(251, 113, 133, 0.06);
+      --emerald: #34D399;
+      --emerald-s: rgba(52, 211, 153, 0.06);
+      --amber: #FBBF24;
+      --amber-s: rgba(251, 191, 36, 0.06);
+      --violet: #A78BFA;
+      --violet-s: rgba(167, 139, 250, 0.06);
+      --sky: #38BDF8;
+      --sky-s: rgba(56, 189, 248, 0.06);
+
+      --r: 12px;
+      --rs: 8px;
+      --tr: all 0.28s cubic-bezier(0.4, 0, 0.2, 1);
+      --sh: 0 12px 40px rgba(0,0,0,0.5);
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.65;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+
+    /* Scrollbars */
+    ::-webkit-scrollbar { width: 6px; height: 6px; }
+    ::-webkit-scrollbar-track { background: var(--bg); }
+    ::-webkit-scrollbar-thumb { background: var(--border2); border-radius: 3px; }
+    ::-webkit-scrollbar-thumb:hover { background: var(--indigo); }
+
+    /* Layout Shell */
+    .shell {
+      display: grid;
+      grid-template-columns: 272px minmax(0, 1fr);
+      min-height: 100vh;
+    }
+
+    /* Sidebar Navigation */
+    .sidebar {
+      position: sticky;
+      top: 0;
+      height: 100vh;
+      overflow-y: auto;
+      background: var(--bg-card);
+      border-right: 1px solid var(--border);
+      padding: 0;
+      z-index: 100;
+    }
+
+    .sb-brand {
+      padding: 24px 20px 20px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .sb-logo {
+      font-family: 'Fraunces', serif;
+      font-size: 16px;
+      font-weight: 800;
+      background: linear-gradient(135deg, var(--indigo), #A5B4FC);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      letter-spacing: -0.2px;
+      line-height: 1.3;
+    }
+
+    .sb-sub {
+      font-size: 10px;
+      color: var(--text-mu);
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      margin-top: 5px;
+      font-weight: 600;
+    }
+
+    .sb-instructor {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin: 16px 20px 0;
+      padding: 12px;
+      background: var(--bg-elev);
+      border-radius: var(--rs);
+      border: 1px solid var(--border);
+    }
+
+    .sb-avatar {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--indigo), var(--violet));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 13px;
+      font-weight: 700;
+      color: #fff;
+      flex-shrink: 0;
+    }
+
+    .sb-name { font-size: 12px; font-weight: 600; color: var(--text); }
+    .sb-role { font-size: 10px; color: var(--text-sec); margin-top: 1px; }
+
+    .nav-grp { padding: 18px 12px 4px; }
+    .nav-grp-label {
+      font-size: 9px;
+      text-transform: uppercase;
+      letter-spacing: 2.5px;
+      color: var(--text-mu);
+      padding: 0 8px;
+      margin-bottom: 6px;
+      font-weight: 700;
+    }
+
+    .nav-link {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      padding: 8px 10px;
+      border-radius: var(--rs);
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--text-sec);
+      text-decoration: none;
+      transition: var(--tr);
+      cursor: pointer;
+    }
+
+    .nav-link:hover { background: var(--bg-elev); color: var(--text); }
+    .nav-link.active { background: var(--indigo-s); color: var(--indigo); font-weight: 600; }
+    .nav-link .ni { font-size: 14px; width: 18px; text-align: center; }
+    .nav-link .nc {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 9.5px;
+      color: var(--text-mu);
+      min-width: 18px;
+    }
+
+    .nav-progress {
+      margin: 16px 20px 24px;
+      background: var(--bg-elev);
+      border-radius: var(--rs);
+      padding: 14px;
+      border: 1px solid var(--border);
+    }
+
+    .np-label { font-size: 10px; color: var(--text-mu); margin-bottom: 6px; text-transform: uppercase; letter-spacing: 1px; font-weight: 600; }
+    .np-bar {
+      height: 6px;
+      background: var(--border2);
+      border-radius: 3px;
+      overflow: hidden;
+      margin-top: 8px;
+    }
+
+    .np-fill {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, var(--indigo), var(--teal));
+      border-radius: 3px;
+      transition: width 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .np-val {
+      font-size: 11px;
+      color: var(--indigo);
+      margin-top: 6px;
+      font-family: 'JetBrains Mono', monospace;
+      font-weight: 600;
+      display: flex;
+      justify-content: space-between;
+    }
+
+    /* Mobile Header/Menu Toggle */
+    .mobile-menu-btn {
+      display: none;
+      position: fixed;
+      top: 16px;
+      left: 16px;
+      z-index: 200;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--rs);
+      padding: 10px 14px;
+      color: var(--text);
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+      box-shadow: var(--sh);
+    }
+
+    /* Main Container */
+    main { min-width: 0; }
+
+    /* Hero Section */
+    .hero {
+      position: relative;
+      padding: 80px 60px 72px;
+      background: 
+        radial-gradient(ellipse 80% 60% at 70% 0%, rgba(129, 140, 248, 0.08) 0%, transparent 70%),
+        radial-gradient(ellipse 50% 40% at 10% 90%, rgba(45, 212, 191, 0.03) 0%, transparent 60%),
+        var(--bg);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--indigo-b);
+      border: 1px solid rgba(129, 140, 248, 0.25);
+      border-radius: 100px;
+      padding: 6px 14px;
+      font-size: 10px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      color: var(--indigo);
+      margin-bottom: 24px;
+    }
+
+    .hero h2 {
+      font-family: 'Fraunces', Georgia, serif;
+      font-size: clamp(38px, 6vw, 64px);
+      font-weight: 900;
+      line-height: 1.05;
+      letter-spacing: -2px;
+      margin-bottom: 20px;
+      max-width: 820px;
+    }
+
+    .hero h2 em {
+      font-style: italic;
+      font-weight: 300;
+      color: var(--indigo);
+    }
+
+    .hero h2 .hl {
+      background: linear-gradient(135deg, var(--gold) 0%, #E5C158 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .hero p {
+      font-size: 16px;
+      color: var(--text-sec);
+      max-width: 680px;
+      line-height: 1.8;
+      margin-bottom: 36px;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-bottom: 36px;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      min-height: 44px;
+      padding: 0 20px;
+      border-radius: var(--rs);
+      font-size: 13.5px;
+      font-weight: 700;
+      text-decoration: none;
+      cursor: pointer;
+      transition: var(--tr);
+      border: 1px solid transparent;
+    }
+
+    .btn.primary {
+      background: var(--indigo);
+      color: var(--bg);
+    }
+    .btn.primary:hover {
+      background: #A5B4FC;
+      box-shadow: 0 0 20px rgba(129,140,248,0.4);
+    }
+
+    .btn.secondary {
+      background: var(--bg-elev);
+      border-color: var(--border);
+      color: var(--text);
+    }
+    .btn.secondary:hover {
+      background: var(--bg-high);
+      border-color: var(--border2);
+    }
+
+    .btn.danger {
+      background: rgba(251, 113, 133, 0.1);
+      border-color: rgba(251, 113, 133, 0.2);
+      color: var(--rose);
+    }
+    .btn.danger:hover {
+      background: rgba(251, 113, 133, 0.2);
+    }
+
+    .hero-stats {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 16px;
+      padding-top: 32px;
+      border-top: 1px solid var(--border);
+      max-width: 900px;
+    }
+
+    .stat {
+      padding-right: 20px;
+      border-right: 1px solid var(--border);
+    }
+    .stat:last-child { border-right: none; }
+
+    .stat strong {
+      display: block;
+      font-family: 'Fraunces', serif;
+      font-size: 38px;
+      font-weight: 700;
+      color: var(--indigo);
+      line-height: 1;
+    }
+
+    .stat span {
+      display: block;
+      font-size: 11px;
+      color: var(--text-mu);
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      margin-top: 6px;
+      font-weight: 600;
+    }
+
+    /* Content Sections */
+    section {
+      padding: 56px 60px;
+      border-bottom: 1px solid var(--border);
+      animation: fadeUp 0.5s ease both;
+    }
+
+    .section-head {
+      margin-bottom: 32px;
+    }
+
+    .section-head h2 {
+      font-family: 'Fraunces', serif;
+      font-size: 32px;
+      font-weight: 700;
+      letter-spacing: -0.5px;
+      line-height: 1.2;
+      margin-bottom: 8px;
+    }
+
+    .section-head p {
+      font-size: 14.5px;
+      color: var(--text-sec);
+      line-height: 1.6;
+    }
+
+    /* Grid and Panels */
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 20px;
+      margin-top: 24px;
+    }
+
+    .panel {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--r);
+      padding: 24px;
+      transition: var(--tr);
+    }
+
+    .panel.interactive:hover {
+      border-color: var(--border2);
+      transform: translateY(-2px);
+      box-shadow: var(--sh);
+    }
+
+    .panel h3 {
+      font-family: 'Fraunces', serif;
+      font-size: 20px;
+      font-weight: 700;
+      margin-bottom: 12px;
+    }
+
+    .panel p {
+      font-size: 13.5px;
+      color: var(--text-sec);
+      line-height: 1.7;
+    }
+
+    /* Filter Tools Toolbar */
+    .tools {
+      position: sticky;
+      top: 0;
+      z-index: 90;
+      display: grid;
+      grid-template-columns: 1fr 220px 180px;
+      gap: 12px;
+      padding: 16px 60px;
+      background: rgba(10, 12, 18, 0.94);
+      border-bottom: 1px solid var(--border);
+      backdrop-filter: blur(14px);
+    }
+
+    .tools input, .tools select {
+      width: 100%;
+      min-height: 42px;
+      padding: 0 14px;
+      border: 1px solid var(--border);
+      border-radius: var(--rs);
+      background: var(--bg-card);
+      color: var(--text);
+      font-size: 13.5px;
+      outline: none;
+      transition: var(--tr);
+    }
+
+    .tools input:focus, .tools select:focus {
+      border-color: var(--indigo);
+      box-shadow: 0 0 0 2px var(--indigo-b);
+    }
+
+    /* Track Dashboard */
+    .track-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
+      gap: 20px;
+    }
+
+    .track-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--r);
+      padding: 24px;
+      position: relative;
+      overflow: hidden;
+      transition: var(--tr);
+    }
+
+    .track-card:hover {
+      border-color: var(--border2);
+      transform: translateY(-2px);
+      box-shadow: var(--sh);
+    }
+
+    .track-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 3px;
+      background: var(--accent, var(--indigo));
+    }
+
+    .track-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 12px;
+      margin-bottom: 14px;
+    }
+
+    .track-code {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 9.5px;
+      font-weight: 600;
+      color: var(--text-mu);
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+    }
+
+    .track-card h3 {
+      font-family: 'Fraunces', serif;
+      font-size: 18px;
+      font-weight: 700;
+      margin-top: 4px;
+      line-height: 1.3;
+    }
+
+    .track-card p {
+      font-size: 13px;
+      color: var(--text-sec);
+      line-height: 1.6;
+      margin-bottom: 16px;
+    }
+
+    /* SVG Radial Progress Ring */
+    .ring {
+      width: 52px;
+      height: 52px;
+      position: relative;
+      flex-shrink: 0;
+    }
+
+    .ring svg {
+      width: 52px;
+      height: 52px;
+      transform: rotate(-90deg);
+    }
+
+    .ring circle {
+      fill: transparent;
+      stroke-width: 4px;
+    }
+
+    .ring .ring-bg {
+      stroke: var(--border);
+    }
+
+    .ring .ring-fill {
+      stroke: var(--accent, var(--indigo));
+      stroke-linecap: round;
+      transition: stroke-dashoffset 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .ring-text {
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px;
+      font-weight: 600;
+      color: var(--text);
+    }
+
+    .tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .tag {
+      font-size: 10px;
+      font-weight: 600;
+      padding: 3px 8px;
+      border-radius: 100px;
+      background: var(--bg-elev);
+      border: 1px solid var(--border);
+      color: var(--text-sec);
+    }
+
+    /* Module Accordion List */
+    .modules-list {
+      display: grid;
+      gap: 16px;
+    }
+
+    .module-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--r);
+      overflow: hidden;
+      transition: var(--tr);
+    }
+
+    .module-card:hover {
+      border-color: var(--border2);
+    }
+
+    .module-head {
+      width: 100%;
+      display: grid;
+      grid-template-columns: 40px 1fr auto auto;
+      gap: 16px;
+      align-items: center;
+      padding: 18px 24px;
+      border: none;
+      background: transparent;
+      text-align: left;
+      cursor: pointer;
+      color: var(--text);
+    }
+
+    .module-num {
+      width: 32px;
+      height: 32px;
+      border-radius: var(--rs);
+      background: var(--indigo-s);
+      border: 1px solid var(--indigo-b);
+      color: var(--indigo);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      font-weight: 700;
+    }
+
+    .module-card.done .module-num {
+      background: rgba(52, 211, 153, 0.1);
+      border-color: rgba(52, 211, 153, 0.2);
+      color: var(--emerald);
+    }
+
+    .module-title b {
+      display: block;
+      font-size: 15px;
+      font-weight: 700;
+    }
+
+    .module-title span {
+      display: block;
+      font-size: 11px;
+      color: var(--text-mu);
+      margin-top: 2px;
+    }
+
+    .level-badge {
+      font-size: 10px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      padding: 4px 10px;
+      border-radius: 100px;
+      background: var(--bg-elev);
+      color: var(--text-sec);
+      border: 1px solid var(--border);
+    }
+
+    .level-badge.core { color: var(--indigo); border-color: var(--indigo-b); }
+    .level-badge.advanced { color: var(--gold); border-color: var(--gold-b); }
+    .level-badge.director { color: var(--teal); border-color: rgba(45, 212, 191, 0.2); }
+
+    .check-btn {
+      min-height: 32px;
+      padding: 0 12px;
+      border-radius: var(--rs);
+      background: var(--bg-elev);
+      border: 1px solid var(--border);
+      color: var(--text-sec);
+      font-size: 11.5px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: var(--tr);
+    }
+
+    .check-btn:hover {
+      border-color: var(--border2);
+      color: var(--text);
+    }
+
+    .check-btn.completed {
+      background: rgba(52, 211, 153, 0.1);
+      border-color: rgba(52, 211, 153, 0.3);
+      color: var(--emerald);
+    }
+
+    .module-body {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      border-top: 1px solid transparent;
+    }
+
+    .module-card.open .module-body {
+      max-height: 2500px;
+      border-top-color: var(--border);
+    }
+
+    .module-content-inner {
+      padding: 24px;
+    }
+
+    /* Tabs Component */
+    .tabs {
+      display: flex;
+      gap: 6px;
+      margin-bottom: 20px;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 8px;
+    }
+
+    .tab-trigger {
+      background: transparent;
+      border: none;
+      color: var(--text-sec);
+      padding: 6px 12px;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      position: relative;
+      transition: var(--tr);
+    }
+
+    .tab-trigger:hover { color: var(--text); }
+    .tab-trigger.active {
+      color: var(--indigo);
+    }
+
+    .tab-trigger.active::after {
+      content: '';
+      position: absolute;
+      bottom: -9px; left: 0; right: 0;
+      height: 2px;
+      background: var(--indigo);
+    }
+
+    .tab-content { display: none; }
+    .tab-content.active { display: block; }
+
+    /* Rich content blocks */
+    .rich-content h4 {
+      font-family: 'Fraunces', serif;
+      font-size: 17px;
+      font-weight: 700;
+      margin-bottom: 10px;
+      color: var(--text);
+    }
+    
+    .rich-content h5 {
+      font-size: 13px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--gold);
+      margin: 16px 0 8px;
+    }
+
+    .rich-content p {
+      font-size: 13.5px;
+      color: var(--text-sec);
+      line-height: 1.7;
+      margin-bottom: 14px;
+    }
+
+    .rich-content ul, .rich-content ol {
+      margin-bottom: 16px;
+      padding-left: 20px;
+    }
+
+    .rich-content li {
+      font-size: 13.5px;
+      color: var(--text-sec);
+      margin-bottom: 6px;
+      line-height: 1.6;
+    }
+
+    .rich-content strong { color: var(--text); }
+
+    .task-box {
+      background: var(--bg-elev);
+      border-left: 3px solid var(--accent, var(--indigo));
+      padding: 12px 16px;
+      border-radius: 0 var(--rs) var(--rs) 0;
+      font-size: 13px;
+      color: var(--text);
+      line-height: 1.6;
+      margin-top: 16px;
+    }
+
+    .answer-box {
+      background: rgba(129, 140, 248, 0.03);
+      border: 1px dashed var(--border2);
+      padding: 16px;
+      border-radius: var(--rs);
+      margin-top: 14px;
+    }
+
+    .answer-box .badge {
+      display: inline-block;
+      font-size: 10px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--indigo);
+      background: var(--indigo-s);
+      padding: 2px 8px;
+      border-radius: 4px;
+      margin-bottom: 10px;
+    }
+
+    /* Code & Prompt blocks */
+    .code-block {
+      background: var(--bg);
+      border: 1px solid var(--border2);
+      border-left: 3px solid var(--indigo);
+      border-radius: var(--rs);
+      padding: 16px;
+      margin: 14px 0;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12px;
+      color: #C8D3F5;
+      line-height: 1.6;
+      position: relative;
+      white-space: pre-wrap;
+      word-break: break-all;
+    }
+
+    .code-label {
+      font-family: 'Inter', sans-serif;
+      font-size: 9px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      color: var(--text-mu);
+      margin-bottom: 8px;
+      display: block;
+    }
+
+    .code-copy {
+      position: absolute;
+      top: 12px; right: 12px;
+      background: var(--bg-elev);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 3px 8px;
+      font-size: 9.5px;
+      color: var(--text-sec);
+      cursor: pointer;
+      transition: var(--tr);
+      font-family: 'Inter', sans-serif;
+      font-weight: 600;
+    }
+
+    .code-copy:hover { color: var(--indigo); border-color: var(--indigo); }
+    .code-copy.copied { color: var(--emerald); border-color: var(--emerald); }
+
+    /* Readiness Dashboard Section */
+    .readiness-container {
+      display: grid;
+      grid-template-columns: 240px 1fr;
+      gap: 32px;
+      align-items: center;
+    }
+
+    .big-score-ring {
+      width: 200px;
+      height: 200px;
+      position: relative;
+      margin: auto;
+    }
+
+    .big-score-ring svg {
+      width: 200px;
+      height: 200px;
+      transform: rotate(-90deg);
+    }
+
+    .big-score-ring circle {
+      fill: transparent;
+      stroke-width: 14px;
+    }
+
+    .big-score-ring .ring-bg {
+      stroke: var(--border);
+    }
+
+    .big-score-ring .ring-fill {
+      stroke: linear-gradient(90deg, var(--indigo), var(--teal));
+      stroke-linecap: round;
+      transition: stroke-dashoffset 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .big-score-text {
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+    }
+
+    .big-score-text strong {
+      font-family: 'Fraunces', serif;
+      font-size: 52px;
+      font-weight: 900;
+      line-height: 1;
+      color: var(--text);
+    }
+
+    .big-score-text span {
+      font-size: 10px;
+      color: var(--text-mu);
+      text-transform: uppercase;
+      letter-spacing: 2.5px;
+      margin-top: 4px;
+      font-weight: 700;
+    }
+
+    .competency-bars {
+      display: grid;
+      gap: 12px;
+    }
+
+    .bar-row {
+      display: grid;
+      grid-template-columns: 140px 1fr 44px;
+      gap: 16px;
+      align-items: center;
+      font-size: 13px;
+      font-weight: 600;
+    }
+
+    .bar-label { color: var(--text-sec); }
+    .bar-track {
+      height: 8px;
+      background: var(--border);
+      border-radius: 99px;
+      overflow: hidden;
+    }
+
+    .bar-fill {
+      height: 100%;
+      width: 0%;
+      border-radius: 99px;
+      transition: width 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .bar-val {
+      font-family: 'JetBrains Mono', monospace;
+      color: var(--text);
+      text-align: right;
+      font-size: 12px;
+    }
+
+    /* Interview Prep Room */
+    .interview-filters {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 24px;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 14px;
+    }
+
+    .int-filter-btn {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      color: var(--text-sec);
+      padding: 6px 14px;
+      border-radius: var(--rs);
+      font-size: 12.5px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: var(--tr);
+    }
+
+    .int-filter-btn:hover { border-color: var(--border2); color: var(--text); }
+    .int-filter-btn.active {
+      background: var(--indigo-s);
+      border-color: var(--indigo);
+      color: var(--indigo);
+    }
+
+    .prep-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 20px;
+    }
+
+    /* Interactive 3D Flip Card */
+    .prep-card-wrapper {
+      perspective: 1000px;
+      min-height: 240px;
+    }
+
+    .prep-card {
+      width: 100%;
+      height: 100%;
+      position: relative;
+      transform-style: preserve-3d;
+      transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+      cursor: pointer;
+    }
+
+    .prep-card-wrapper.flipped .prep-card {
+      transform: rotateY(180deg);
+    }
+
+    .prep-front, .prep-back {
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      backface-visibility: hidden;
+      border-radius: var(--r);
+      border: 1px solid var(--border);
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      overflow-y: auto;
+    }
+
+    .prep-front {
+      background: var(--bg-card);
+      z-index: 2;
+    }
+
+    .prep-back {
+      background: var(--bg-elev);
+      transform: rotateY(180deg);
+      border-color: var(--border2);
+    }
+
+    .prep-lens {
+      font-size: 10px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      color: var(--gold);
+      margin-bottom: 12px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    
+    .prep-lens .stars { color: var(--amber); }
+
+    .prep-front h3 {
+      font-family: 'Fraunces', serif;
+      font-size: 18px;
+      font-weight: 700;
+      line-height: 1.4;
+      color: var(--text);
+      margin-bottom: 16px;
+    }
+
+    .prep-asset {
+      margin-top: auto;
+      background: var(--bg);
+      border-left: 2px solid var(--indigo);
+      padding: 8px 12px;
+      border-radius: 0 var(--rs) var(--rs) 0;
+      font-size: 11.5px;
+      color: var(--text-sec);
+      line-height: 1.5;
+    }
+
+    .prep-back h4 {
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--indigo);
+      margin-bottom: 8px;
+    }
+
+    .prep-back p {
+      font-size: 13px;
+      color: var(--text-sec);
+      line-height: 1.6;
+    }
+
+    .flip-hint {
+      align-self: center;
+      margin-top: 10px;
+      font-size: 10px;
+      font-weight: 600;
+      color: var(--text-mu);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    /* Portfolio Workbench Layout */
+    .portfolio-grid {
+      display: grid;
+      gap: 20px;
+      margin-top: 20px;
+    }
+
+    .portfolio-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--r);
+      padding: 24px;
+    }
+
+    .portfolio-card h3 {
+      font-family: 'Fraunces', serif;
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 6px;
+    }
+
+    .portfolio-card .subtitle {
+      font-size: 12px;
+      color: var(--indigo);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      font-weight: 600;
+      margin-bottom: 14px;
+      display: block;
+    }
+
+    .portfolio-card p {
+      font-size: 13.5px;
+      color: var(--text-sec);
+      line-height: 1.7;
+      margin-bottom: 14px;
+    }
+
+    .proof-box {
+      background: rgba(45, 212, 191, 0.02);
+      border-left: 3px solid var(--teal);
+      padding: 12px 16px;
+      border-radius: 0 var(--rs) var(--rs) 0;
+      font-size: 13px;
+      color: var(--text);
+      margin-bottom: 16px;
+    }
+
+    /* Resource lists */
+    .source-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 16px;
+      list-style: none;
+    }
+
+    .source-list li {
+      background: var(--bg-elev);
+      border: 1px solid var(--border);
+      padding: 16px;
+      border-radius: var(--rs);
+    }
+
+    .source-list a {
+      color: var(--indigo);
+      font-weight: 600;
+      text-decoration: none;
+      font-size: 14px;
+      display: block;
+      margin-bottom: 4px;
+    }
+
+    .source-list a:hover { text-decoration: underline; }
+    .source-list p { font-size: 12.5px; color: var(--text-sec); line-height: 1.5; }
+
+    /* Footer */
+    footer {
+      padding: 48px 60px;
+      background: var(--bg-card);
+      border-top: 1px solid var(--border);
+      color: var(--text-mu);
+      font-size: 12.5px;
+      text-align: center;
+      line-height: 1.8;
+    }
+
+    footer span { color: var(--indigo); font-weight: 600; }
+
+    /* Print media rules */
+    @media print {
+      body { background: white; color: black; }
+      .sidebar, .tools, .mobile-menu-btn, .hero-actions, .check-btn { display: none !important; }
+      .shell { display: block; }
+      main { padding: 0; }
+      section { border-bottom: 2px solid #ccc; padding: 20px 0; page-break-inside: avoid; }
+      .module-body { max-height: none !important; display: block !important; border-top: 1px solid #ccc; }
+      .tab-content { display: block !important; margin-bottom: 20px; }
+      .tabs { display: none !important; }
+      .code-copy { display: none !important; }
+    }
+
+    /* Responsive media rules */
+    @media (max-width: 960px) {
+      .shell { grid-template-columns: 1fr; }
+      .mobile-menu-btn { display: block; }
+      .sidebar {
+        position: fixed;
+        top: 0; left: 0; bottom: 0;
+        width: 272px;
+        transform: translateX(-100%);
+        transition: var(--tr);
+        z-index: 150;
+      }
+      .sidebar.open { transform: translateX(0); box-shadow: var(--sh); }
+      .tools {
+        grid-template-columns: 1fr;
+        padding: 12px 24px;
+      }
+      .hero { padding: 90px 24px 48px; }
+      .hero h2 { font-size: 32px; letter-spacing: -1px; }
+      .hero-stats { grid-template-columns: repeat(2, 1fr); gap: 20px; }
+      .stat:nth-child(2n) { border-right: none; }
+      section { padding: 40px 24px; }
+      .grid-3 { grid-template-columns: 1fr; }
+      .readiness-container { grid-template-columns: 1fr; gap: 24px; }
+      .prep-grid { grid-template-columns: 1fr; }
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(14px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body>
+  <!-- Mobile Menu Button -->
+  <button class="mobile-menu-btn" id="menuBtn">☰ Menu</button>
+
+  <div class="shell">
+    <!-- ══════════════ SIDEBAR ══════════════ -->
+    <aside class="sidebar" id="sidebar">
+      <div class="sb-brand">
+        <div class="sb-logo">UX Architect<br>Course Blueprint</div>
+        <div class="sb-sub">Anurag Challapalli</div>
+      </div>
+
+      <div class="sb-instructor">
+        <div class="sb-avatar">AC</div>
+        <div>
+          <div class="sb-name">Anurag Challapalli</div>
+          <div class="sb-role">Principal UX Candidate</div>
+        </div>
+      </div>
+
+      <div class="nav-progress">
+        <div class="np-label">Study Progress</div>
+        <div class="np-bar"><div class="np-fill" id="sideProgressFill"></div></div>
+        <div class="np-val">
+          <span id="sideProgressPct">0%</span>
+          <span id="sideProgressFraction">0 / 55 modules</span>
+        </div>
+      </div>
+
+      <nav class="nav-grp">
+        <div class="nav-grp-label">Core Program</div>
+        <a class="nav-link active" href="#home"><span class="ni">🏠</span> Home</a>
+        <a class="nav-link" href="#why-this-course"><span class="ni">🛡️</span> Program Strategy</a>
+        <a class="nav-link" href="#dashboard"><span class="ni">📊</span> Track Dashboard</a>
+        <a class="nav-link" href="#modules"><span class="ni">📖</span> Module Study Room</a>
+      </nav>
+
+      <nav class="nav-grp">
+        <div class="nav-grp-label">Preparation Suites</div>
+        <a class="nav-link" href="#readiness"><span class="ni">🎯</span> Readiness Dashboard</a>
+        <a class="nav-link" href="#interviews"><span class="ni">🎤</span> Interview Prep Room</a>
+        <a class="nav-link" href="#portfolio"><span class="ni">📦</span> Portfolio Workbench</a>
+        <a class="nav-link" href="#resources"><span class="ni">📚</span> Reference Library</a>
+      </nav>
+    </aside>
+
+    <!-- ══════════════ MAIN ══════════════ -->
+    <main>
+      <!-- Hero Header Section -->
+      <header class="hero" id="home">
+        <div class="eyebrow">Personal Development Learning Hub · v1.0</div>
+        <h2>
+          Crack the <em>Principal</em><br>
+          <span class="hl">UX Architect / Director</span> Role
+        </h2>
+        <p>
+          Welcome to your personal Coursera-style course website, designed around your exact profile, 16+ years of enterprise healthcare experience, CUA certification, and Providence Global Center design system leadership. Master these 8 study tracks, practice 200+ interview responses, and rebuild your portfolio to unlock the Principal level.
+        </p>
+        <div class="hero-actions">
+          <a class="btn primary" href="#dashboard">Start Study Program</a>
+          <a class="btn secondary" href="#interviews">Practice Interviews</a>
+          <button class="btn danger" id="resetBtn">Reset All Progress</button>
+        </div>
+        <div class="hero-stats">
+          <div class="stat"><strong>8</strong><span>Course Tracks</span></div>
+          <div class="stat"><strong>55</strong><span>Modules</span></div>
+          <div class="stat"><strong>60+</strong><span>Figma Exercises</span></div>
+          <div class="stat"><strong>16yr</strong><span>Proven Experience</span></div>
+        </div>
+      </header>
+
+      <!-- Section: Why This Course -->
+      <section id="why-this-course">
+        <div class="section-head">
+          <h2>Program Strategy &amp; Gaps</h2>
+          <p>Traditional UX courses teach general layout principles. This website bridges the specific gaps tested in Fortune 50 Principal and Director evaluation loops.</p>
+        </div>
+        <div class="grid-3">
+          <div class="panel interactive">
+            <h3>Architecture Altitude</h3>
+            <p>Moving from high-fidelity designer to structural system architect. Master complex multi-role workflows, state machines, information taxonomies, and formal Architecture Decision Records (ADRs).</p>
+          </div>
+          <div class="panel interactive">
+            <h3>Enterprise Governance</h3>
+            <p>Designing structures that scale. Refine component Prop APIs, semantic design token white-labeling, centralized/federated contribution governance models, and quantitative DS ROI math.</p>
+          </div>
+          <div class="panel interactive">
+            <h3>Director Influence</h3>
+            <p>Arguing experience metrics as business metrics. Map design capabilities to McKinsey Three Horizons, construct Wardley maps, and translate UX outcomes into CFO-friendly language.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Section: Track Filter Toolbar -->
+      <div class="tools" id="filterBar">
+        <input id="searchInput" type="search" placeholder="Search modules, concepts, skills, or interview topics...">
+        <select id="trackFilter" aria-label="Filter by Track">
+          <option value="all">All Tracks</option>
+        </select>
+        <select id="levelFilter" aria-label="Filter by Level">
+          <option value="all">All Levels</option>
+          <option value="Core">Core Level</option>
+          <option value="Advanced">Advanced Level</option>
+          <option value="Director">Director Level</option>
+        </select>
+      </div>
+
+      <!-- Section: Track Dashboard -->
+      <section id="dashboard">
+        <div class="section-head">
+          <h2>Track Dashboard</h2>
+          <p>Monitor your completion percentage across the eight core competencies required to crack Principal roles.</p>
+        </div>
+        <div class="track-grid" id="trackGrid"></div>
+      </section>
+
+      <!-- Section: Module Viewer -->
+      <section id="modules">
+        <div class="section-head">
+          <h2>Module Study Room</h2>
+          <p>Expand a module, study the advanced concept, complete the Figma artifact, rehearse the model interview response, and check it off.</p>
+        </div>
+        <div class="modules-list" id="moduleList"></div>
+      </section>
+
+      <!-- Section: Readiness Dashboard -->
+      <section id="readiness">
+        <div class="section-head">
+          <h2>Readiness Dashboard</h2>
+          <p>Your live preparation score. It dynamically calculates your readiness index based on your completion state across different functional areas.</p>
+        </div>
+        <div class="panel">
+          <div class="readiness-container">
+            <div class="big-score-ring">
+              <svg>
+                <circle class="ring-bg" cx="100" cy="100" r="85"></circle>
+                <circle class="ring-fill" id="readinessGauge" cx="100" cy="100" r="85"></circle>
+              </svg>
+              <div class="big-score-text">
+                <strong id="readinessScore">0%</strong>
+                <span>Hiring Index</span>
+              </div>
+            </div>
+            <div class="competency-bars" id="competencyBars"></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Section: Interview Prep Room -->
+      <section id="interviews">
+        <div class="section-head">
+          <h2>Interview Prep Room</h2>
+          <p>Practice Director-level interview responses mapped to critical organizational lenses. Click a card to flip it and reveal the STAR model answer.</p>
+        </div>
+        <div class="interview-filters" id="interviewFilters">
+          <button class="int-filter-btn active" data-lens="all">All Questions</button>
+          <button class="int-filter-btn" data-lens="CEO">CEO Lens</button>
+          <button class="int-filter-btn" data-lens="CTO">CTO / VP Engineering</button>
+          <button class="int-filter-btn" data-lens="CPO">CPO / VP Product</button>
+          <button class="int-filter-btn" data-lens="Director">VP of Design</button>
+          <button class="int-filter-btn" data-lens="Behavioral">Behavioral (STAR)</button>
+          <button class="int-filter-btn" data-lens="Whiteboard">Whiteboard</button>
+        </div>
+        <div class="prep-grid" id="interviewGrid"></div>
+      </section>
+
+      <!-- Section: Portfolio Workbench -->
+      <section id="portfolio">
+        <div class="section-head">
+          <h2>Portfolio Workbench</h2>
+          <p>Structure your Behance and GitHub Pages presence. Replace visual screen layouts with high-leverage architectural case studies.</p>
+        </div>
+        <div class="portfolio-grid">
+          <div class="portfolio-card">
+            <span class="subtitle">Flagship Case Study</span>
+            <h3>Providence Multi-Product Design System</h3>
+            <p>Position your leadership of the Providence system as an enterprise infrastructure product, rather than a UI kit. Document the white-labeling token architecture, custom token schema, contribution model, adoption metrics, and accessibility audit checklists.</p>
+            <div class="proof-box"><strong>Evidence to present:</strong> Before-and-after component duplication rates, engineering velocity gains, design-system ROI metrics, and concrete contribution workflow maps.</div>
+          </div>
+          <div class="portfolio-card">
+            <span class="subtitle">Regulated Domain Case Study</span>
+            <h3>Clinical EHR &amp; Patient Workflow Architecture</h3>
+            <p>Showcase how you design clinical workflows (e.g., patient records, order management, nurse handoffs) under stringent regulatory constraints, ensuring clinical safety and 100% WCAG 2.2 AA compliance.</p>
+            <div class="proof-box"><strong>Evidence to present:</strong> Site taxonomy maps, system state machine diagrams, clinical error-prevention measures, and task success metrics.</div>
+          </div>
+          <div class="portfolio-card">
+            <span class="subtitle">AI-Native DesignOps Case Study</span>
+            <h3>AI-Augmented UX Workflow &amp; Governance</h3>
+            <p>Highlight your hands-on leadership using Figma Make, Claude AI, and Google Stitch to automate repetitive designer tasks, while establishing human-in-the-loop review criteria to safeguard against AI hallucinations and HIPAA violations.</p>
+            <div class="proof-box"><strong>Evidence to present:</strong> Swimlane process maps, custom prompts libraries, design QA guidelines, and AI safety criteria documents.</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Section: Reference Library -->
+      <section id="resources">
+        <div class="section-head">
+          <h2>Reference Library</h2>
+          <p>Principal-level reading lists, copyable master prompts, and formal frameworks to feed into your study sessions.</p>
+        </div>
+        <div class="panel">
+          <h3 style="margin-bottom:14px; font-family:'Fraunces',serif;">Essential Reading</h3>
+          <ul class="source-list">
+            <li>
+              <a href="https://www.oreilly.com/library/view/information-architecture-4th/9781491911679/" target="_blank" rel="noreferrer">Information Architecture (4th Ed)</a>
+              <p>Morville, Rosenfeld, and Arango. Master structural patterns, taxonomies, and search findability hierarchies.</p>
+            </li>
+            <li>
+              <a href="https://www.oreilly.com/library/view/designing-for-the/9780470228395/" target="_blank" rel="noreferrer">Designing for the Digital Age</a>
+              <p>Kim Goodwin. The ultimate guide to enterprise product scale, research synthesis, and org alignments.</p>
+            </li>
+            <li>
+              <a href="https://rosenfeldmedia.com/books/just-enough-research/" target="_blank" rel="noreferrer">Just Enough Research</a>
+              <p>Erika Hall. Conduct rapid, strategic, and high-impact mixed-methods research that stakeholders trust.</p>
+            </li>
+            <li>
+              <a href="https://atomicdesign.bradfrost.com/" target="_blank" rel="noreferrer">Atomic Design</a>
+              <p>Brad Frost. Establish the baseline mental model for reusable component architectures and scalable design systems.</p>
+            </li>
+          </ul>
+        </div>
+      
+        <div class="panel" style="margin-top: 24px;">
+          <h3 style="margin-bottom:14px; font-family:'Fraunces',serif;">Master Prompt Library</h3>
+          <p style="margin-bottom: 16px;">Copy these master prompts to paste into Claude or ChatGPT for deeper self-directed research on each track.</p>
+          <div class="tools" style="padding: 0; background: transparent; border: none; margin-bottom: 16px; grid-template-columns: 1fr auto;">
+            <select id="promptSelect" aria-label="Select Track Prompt" style="min-height:40px;">
+              <option value="p1">Track 01: UX Architecture Foundations Prompt</option>
+              <option value="p2">Track 02: Visual Design Systems Prompt</option>
+              <option value="p3">Track 03: Research Science Prompt</option>
+              <option value="p4">Track 04: Design Systems at Scale Prompt</option>
+              <option value="p5">Track 05: Design Strategy &amp; Leadership Prompt</option>
+              <option value="p6">Track 06: AI-Augmented UX Prompt</option>
+              <option value="p7">Track 07: Interview Mastery Prompt</option>
+              <option value="p8">Track 08: Portfolio Architecture Prompt</option>
+            </select>
+            <button class="btn primary" id="copyPromptBtn" style="min-height:40px;">Copy Prompt</button>
+          </div>
+          <div class="code-block" style="max-height: 250px; overflow-y: auto; white-space: pre-wrap;" id="promptDisplay">Select a track prompt to display...</div>
+        </div>
+      </section>
+
+      <!-- Footer -->
+      <footer>
+        UX Architect Career Learning Hub &nbsp;·&nbsp; Engineered for <span>Anurag Challapalli</span> &nbsp;·&nbsp; June 2026<br>
+        16 Years Experience &nbsp;|&nbsp; CUA Certified &nbsp;|&nbsp; Providence Design System Lead
+      </footer>
+    </main>
+  </div>
+
+  <!-- JavaScript Controllers and Data -->
+  <script>
+    // ══════════════ DATA: 8 TRACKS (55 MODULES ENRICHED) ══════════════
+    const tracks = [
+      {
+        id: "t1",
+        code: "Track 01",
+        title: "UX Architecture Foundations",
+        accent: "#818CF8",
+        hours: 12,
+        competency: "Architecture",
+        tags: ["IA", "Taxonomy", "Mental Models", "ADRs"],
+        summary: "Enterprise IA patterns, wayfinding, clinical workflow state mappings, and architectural decision frameworks.",
+        modules: [
+          {
+            title: "Enterprise IA & Organization Patterns",
+            level: "Core",
+            concept: `<h4>Core Concept</h4>
+              <p>At the Principal level, Information Architecture (IA) is treated as an enterprise infrastructure layer. You must design schemas that map to complex user database objects and remain resilient across multi-brand surfaces.</p>
+              <h5>Key Patterns</h5>
+              <ul>
+                <li><strong>Hub-and-Spoke:</strong> Ideal for portals (e.g., patient portals) where users return to a central dashboard (the hub) to launch independent diagnostic apps (the spokes) that share database variables.</li>
+                <li><strong>Faceted Classification:</strong> Essential for EHR search query results, permitting doctors to filter complex records dynamically by date, clinical code type, provider, and department.</li>
+              </ul>
+              <h5>Architect Insight</h5>
+              <p>Practitioners organize menus based on client requests. Architects design IA based on cognitive load constraints, card sorting statistics, and long-term tech stack scalability.</p>`,
+            exercise: `<h4>Figma Exercise</h4>
+              <p>Design a 3-level site map structure for an enterprise healthcare system servicing 3 separate user roles: Clinician, Operations Clerk, and System Admin.</p>
+              <div class="task-box">Deliverable standard: Define navigation routes, listing shared database objects and illustrating role-based read/write access points.</div>`,
+            question: "How do you redesign information architecture for a fragmented portal without breaking clinician habits?",
+            answer: `<strong>STAR Answer:</strong><br>
+              <strong>Situation:</strong> The Providence clinical portal had 12 separate apps with inconsistent navigation models, leading to data entry delays and clinician fatigue.
+              <br><strong>Task:</strong> Redesign the IA to reduce cognitive load while preserving workflows for active physicians.
+              <br><strong>Action:</strong> I initiated card sorting loops with 40 clinical leads to align the menu taxonomy to clinical cycles rather than backend server frameworks. I designed a unified, federated navigation bar and established a Strangler Fig migration strategy to replace navigation paths incrementally.
+              <br><strong>Result:</strong> We saw a 32% decrease in navigation clicks, a 20% faster chart-load time, and 100% adoption within 4 weeks with zero clinical disruption.`
+          },
+          {
+            title: "Navigation Taxonomy & Wayfinding",
+            level: "Core",
+            concept: `<h4>Core Concept</h4>
+              <p>Establish persistent global navigation rules that remain consistent across mobile and desktop. Standardize breadcrumb syntax, custom keyboard shortcuts, and deep search indicators.</p>`,
+            exercise: `<h4>Figma Exercise</h4>
+              <p>Create a navigation wayfinding blueprint for a tablet-first application, mapping responsive patterns and state shifts.</p>`,
+            question: "When is it appropriate to hide the global navigation bar in an enterprise SaaS app?",
+            answer: `<strong>STAR Answer:</strong><br>
+              <strong>Situation:</strong> During patient diagnostics, clinical operators faced screen clutter that distracted from critical telemetry readings.
+              <br><strong>Task:</strong> Design a context-focused view that increases screen real estate while keeping emergency exits accessible.
+              <br><strong>Action:</strong> I designed a transient, modal-style immersive workspace that hid the global nav bar while exposing a permanent 'Exit to Patient Dashboard' emergency header button.
+              <br><strong>Result:</strong> Clinician screen real estate increased by 22%, and emergency exits were executed in under 1.2 seconds, meeting safety compliance benchmarks.`
+          },
+          {
+            title: "Content Hierarchy & mental models",
+            level: "Advanced",
+            concept: `<h4>Core Concept</h4>
+              <p>Utilize card-sorting and tree-testing strategies with large user groups (n=50+) to map semantic hierarchies that match the mental models of your users rather than your database schemas.</p>`,
+            exercise: `<h4>Figma Exercise</h4>
+              <p>Conduct a card-sort data analysis using a spreadsheet to group 60 EHR features into cohesive, user-validated tabs.</p>`,
+            question: "How do you prove that a proposed IA change represents an improvement before writing code?",
+            answer: `<strong>STAR Answer:</strong><br>
+              <strong>Situation:</strong> Stakeholders disagreed on a menu redesign for the billing administration portal.
+              <br><strong>Task:</strong> Validate the new taxonomy quantitatively before starting engineering builds.
+              <br><strong>Action:</strong> I set up tree-testing tasks on Optimal Workshop with 45 admin operators, testing task findability across the legacy and proposed structures.
+              <br><strong>Result:</strong> The proposed IA showed a success rate increase from 54% to 88% and cut task time-to-find from 14 seconds to 5.2 seconds, securing executive buy-in.`
+          },
+          {
+            title: "UX Systems Thinking & Ecosystems",
+            level: "Advanced",
+            concept: `<h4>Core Concept</h4>
+              <p>Model the product experience as an interdependent ecosystem. Map out the relationships between different entities (Patient, Prescriber, Clinic) and their respective actions to ensure global data coherence.</p>`,
+            exercise: `<h4>Figma Exercise</h4>
+              <p>Draw a system causal-loop diagram mapping doctor-patient-pharmacist touchpoints and data handoffs.</p>`,
+            question: "How do you prevent a change in one feature from causing UX regressions in a connected sub-product?",
+            answer: `<strong>STAR Answer:</strong><br>
+              <strong>Situation:</strong> Updating the patient profile card in the scheduling module regularly broke layouts in the billing module.
+              <br><strong>Task:</strong> Standardize a shared data visualization system.
+              <br><strong>Action:</strong> I spearheaded an ecosystem alignment workshop with the lead engineers of both modules and created a shared component API spec for core data objects.
+              <br><strong>Result:</strong> Component layout regressions dropped to zero, and integration testing velocity improved by 15%.`
+          },
+          {
+            title: "Accessibility-First IA & WCAG 2.2",
+            level: "Director",
+            concept: `<h4>Core Concept</h4>
+              <p>Treat accessibility (WCAG 2.2 AA) as a system-level constraint. Architect keyboard navigation contracts, screen reader landmark hierarchies, and descriptive link lists at the planning stage.</p>`,
+            exercise: `<h4>Figma Exercise</h4>
+              <p>Document the ARIA landmark outlines, tab-index ordering, and keyboard shortcut list for a complex data grid component.</p>`,
+            question: "How do you establish accessibility governance across multiple feature teams?",
+            answer: `<strong>STAR Answer:</strong><br>
+              <strong>Situation:</strong> Feature teams at Providence were shipping components that regularly failed WCAG compliance standards.
+              <br><strong>Task:</strong> Implement systematic accessibility governance across 8 distributed teams.
+              <br><strong>Action:</strong> I integrated automated accessibility check gates into our CI/CD pipeline and added accessibility criteria specifications to our design system components.
+              <br><strong>Result:</strong> Component compliance reached 100% at code check-in, reducing manual audit cycles by 80%.`
+          },
+          {
+            title: "Architecture Decision Records (ADRs) for UX",
+            level: "Director",
+            concept: `<h4>Core Concept</h4>
+              <p>Document design choices via Architecture Decision Records. Define: Context, Alternatives Considered, Tradeoffs, Decision, and System Consequences. This defends UX design decisions to engineering and product leaders.</p>`,
+            exercise: `<h4>Miro / Figma Exercise</h4>
+              <p>Write a formal UX ADR deciding between a multi-page checkout flow versus a single-page infinite form for a patient check-in portal.</p>`,
+            question: "How do you defend a design decision that product management wants to override for speed?",
+            answer: `<strong>STAR Answer:</strong><br>
+              <strong>Situation:</strong> Product managers wanted to bypass inline form validations to launch a patient check-in feature 2 weeks early.
+              <br><strong>Task:</strong> Maintain the user experience standard while respecting timelines.
+              <br><strong>Action:</strong> I drafted a UX ADR illustrating the risk: skipping validation would increase patient onboarding errors by an estimated 25%, resulting in a higher administrative support load. I proposed a phased implementation model: launch on time with automated validation on the top 3 high-impact input fields, implementing the rest in the next sprint.
+              <br><strong>Result:</strong> The phased model was approved. Validation errors stayed below 3%, and the release timeline was preserved.`
+          }
+        ]
+      },
+      {
+        id: "t2",
+        code: "Track 02",
+        title: "Visual Design Systems",
+        accent: "#C9A84C",
+        hours: 10,
+        competency: "Systems",
+        tags: ["Tokens", "Variables", "Component APIs", "Theming"],
+        summary: "Design token architecture (DTCG format), multi-brand semantic aliasing, component prop APIs, and motion specifications.",
+        modules: [
+          {
+            title: "Design Token Architecture (DTCG Standard)",
+            level: "Core",
+            concept: `<h4>Core Concept</h4>
+              <p>Implement design token schemas following the W3C DTCG format. Structure your tokens in a 3-tier hierarchy: primitive (value definitions), semantic (usage rules), and component-specific variables.</p>`,
+            exercise: `<h4>Figma Exercise</h4>
+              <p>Construct a JSON representation of primitive and semantic light/dark token sets, utilizing Figma Variables.</p>`,
+            question: "Explain the difference between primitive and semantic tokens, and why both are necessary.",
+            answer: `<strong>STAR Answer:</strong><br>
+              <strong>Situation:</strong> Our design system had color values hardcoded in variables, making light/dark themes difficult to manage.
+              <br><strong>Task:</strong> Implement a robust token architecture to enable white-labeling and theming.
+              <br><strong>Action:</strong> I restructured our tokens. Primitive tokens defined the raw hex palette (e.g., Blue-500). Semantic tokens defined the meaning of the token (e.g., Color-Background-Interactive-Active maps to Blue-500).
+              <br><strong>Result:</strong> Swapping themes was reduced to a single click, and codebase color references were simplified, reducing token count by 65%.`
+          },
+          {
+            title: "Multi-Brand Theming & Aliasing",
+            level: "Core",
+            concept: `<h4>Core Concept</h4>
+              <p>Establish systematic color palettes and semantic aliasing mapping rules. This allows a single component library to adapt to different visual identities (multi-branding) or dark/light modes.</p>`,
+            exercise: `<h4>Figma Exercise</h4>
+              <p>Set up a white-label dashboard layout, applying Figma modes to swap themes between a clean clinical brand and a premium patient brand.</p>`,
+            question: "How do you handle contrast accessibility compliance (WCAG) across dynamic brand themes?",
+            answer: `<strong>STAR Answer:</strong><br>
+              <strong>Situation:</strong> A new brand theme had a primary yellow color that failed contrast checks when rendering text.
+              <br><strong>Task:</strong> Secure WCAG AA contrast compliance across all brand modes without overriding brand guidelines.
+              <br><strong>Action:</strong> I introduced a semantic contrast layer in our token hierarchy. The semantic variable 'Color-Text-OnPrimary' dynamically resolved to dark charcoal or white depending on the background contrast ratio calculation.
+              <br><strong>Result:</strong> Contrast errors fell to 0% across 5 distinct brand themes, and styling velocity increased by 40%.`
+          },
+          {
+            title: "HIG & Material 3 Adaptation",
+            level: "Advanced",
+            concept: `<h4>Core Concept</h4>
+              <p>Understand how to customize platform frameworks like Material You and iOS HIG. Align native OS behaviors with custom enterprise brand guidelines to preserve usability.</p>`,
+            exercise: `<h4>Figma Exercise</h4>
+              <p>Design a cross-platform mobile UI component utilizing Material 3 slots on Android and UIKit configurations on iOS.</p>`,
+            question: "When should you override Google Material Design or Apple HIG defaults in an enterprise product?",
+            answer: `<strong>STAR Answer:</strong><br>
+              <strong>Situation:</strong> Material 3's float action button (FAB) overlapped critical grid cell values in a clinical charting view.
+              <br><strong>Task:</strong> Modify platform-standard layouts to fit high-density desktop views.
+              <br><strong>Action:</strong> I authored a design system override rule, moving the FAB's actions to a persistent top action bar, while documenting the deviation in our ADR repo.
+              <br><strong>Result:</strong> Data readability increased by 18%, and clinician navigation error rates fell by 14%.`
+          },
+          {
+            title: "Motion Design Specs & Performance",
+            level: "Advanced",
+            concept: `<h4>Core Concept</h4>
+              <p>Standardize motion choreography. Define tokens for duration (e.g. 200ms) and easing (e.g. cubic-bezier) curves. Ensure respect for user OS preferences like 'prefers-reduced-motion'.</p>`,
+            exercise: `<h4>Figma Exercise</h4>
+              <p>Document a detailed motion specification outline for an accordion menu expansion transition.</p>`,
+            question: "How do you specify motion tokens to keep rendering smooth on low-spec device hardware?",
+            answer: `<strong>STAR Answer:</strong><br>
+              <strong>Situation:</strong> Navigation transitions caused noticeable framerate drops on legacy clinical tablet terminals.
+              <br><strong>Task:</strong> Optimize transitions to maintain a smooth framerate.
+              <br><strong>Action:</strong> I simplified our motion curve tokens and restricted transitions to transform and opacity properties only. I also implemented a global media query check to disable transitions when 'prefers-reduced-motion' was active.
+              <br><strong>Result:</strong> Average animation framerates increased from 42fps to a smooth 60fps on legacy tablets.`
+          },
+          {
+            title: "Component API Design & Headless UI",
+            level: "Director",
+            concept: `<h4>Core Concept</h4>
+              <p>Establish component API guidelines. Map out component slots, variants, size properties, and state boundaries to prevent custom code overrides from eroding visual consistency.</p>`,
+            exercise: `<h4>Figma Exercise</h4>
+              <p>Write an API spec for a complex Select component, detailing prop naming standards and slot capabilities.</p>`,
+            question: "What makes a component API design fragile in a large developer organization?",
+            answer: `<strong>STAR Answer:</strong><br>
+              <strong>Situation:</strong> Teams were creating custom variants of our buttons because the system component did not support custom icons.
+              <br><strong>Task:</strong> Redesign the button component API to support extensions without bloating code.
+              <br><strong>Action:</strong> I refactored our button architecture to expose icon slot props, ensuring icon size and alignment were managed by the parent container.
+              <br><strong>Result:</strong> Button layout drift dropped to zero, and code customization requests decreased by 70%.`
+          },
+          {
+            title: "Visual Quality Assurance & Adoption",
+            level: "Director",
+            concept: `<h4>Core Concept</h4>
+              <p>Build visual regression testing pipelines (e.g. Chromatic, Storybook). Define trackable design system metrics, such as component adoption rate and design-to-code alignment percentages.</p>`,
+            exercise: `<h4>Figma Exercise</h4>
+              <p>Draft a dashboard layout tracking design-system component adoption rate across 5 products.</p>`,
+            question: "How do you drive adoption of a design system in teams that prefer their custom UI configurations?",
+            answer: `<strong>STAR Answer:</strong><br>
+              <strong>Situation:</strong> Two product teams refused to adopt the system, citing delivery timelines.
+              <br><strong>Task:</strong> Drive system adoption without slowing down delivery velocity.
+              <br><strong>Action:</strong> I sat down with their developers and set up custom linters that auto-flagged non-system styling declarations, and created codemods that automatically updated legacy buttons to system components.
+              <br><strong>Result:</strong> Component adoption in those products increased from 15% to 85% within a single sprint.`
+          }
+        ]
+      },
+      {
+        id: "t3",
+        code: "Track 03",
+        title: "Research Science for Leaders",
+        accent: "#0F766E",
+        hours: 14,
+        competency: "Research",
+        tags: ["Strategy", "JTBD", "Metrics", "ResearchOps"],
+        summary: "Mixed-methods research design, Jobs-To-Be-Done (JTBD) customer outcome statements, quant benchmarking, and ResearchOps.",
+        modules: [
+          {
+            title: "Research Strategy & Decision Risk",
+            level: "Core",
+            concept: `<h4>Core Concept</h4>
+              <p>Right-size your research methods to decision risk. Generative methods (interviews) reduce direction risk. Evaluative methods (usability testing) reduce execution risk.</p>`,
+            exercise: `<h4>Notion Exercise</h4>
+              <p>Write a research plan selecting methods and sample sizes for a high-risk clinical triage application redesign.</p>`,
+            question: "How do you determine when you have done 'enough' research to start designing?",
+            answer: `<strong>STAR Answer:</strong><br>
+              <strong>Situation:</strong> A team spent 6 weeks interviewing users about scheduling preferences, delaying execution.
+              <br><strong>Task:</strong> Introduce a framework to define when research is sufficient.
+              <br><strong>Action:</strong> I introduced a Research Saturation Metric: research ended when three consecutive interviews yielded zero new user behaviors, goals, or problems.
+              <br><strong>Result:</strong> Research cycles were reduced by 40%, allowing design work to start on schedule.`
+          },
+          {
+            title: "Jobs-to-be-Done for B2B Healthcare",
+            level: "Advanced",
+            concept: `<h4>Core Concept</h4>
+              <p>Apply Tony Ulwick's Jobs-to-be-Done framework to enterprise SaaS. Ditch demographic personas and focus on user intent, situational tasks, and customer outcome statements.</p>`,
+            exercise: `<h4>Document Exercise</h4>
+              <p>Translate five clinical user interviews into clear customer job statements and desired outcome metrics.</p>`,
+            question: "Why do traditional demographic personas fail in B2B enterprise software contexts?",
+            answer: `<strong>STAR Answer:</strong><br>
+              <strong>Situation:</strong> Personas like 'Doctor David, 45, likes golf' failed to help developers resolve database and workflow interface decisions.
+              <br><strong>Task:</strong> Replace personas with a B2B framework that drives engineering alignment.
+              <br><strong>Action:</strong> I introduced JTBD customer job profiles focused on functional targets (e.g. 'Minimize time to record accurate diagnosis during patient triage').
+              <br><strong>Result:</strong> Feature prioritization alignment increased, and design rework dropped by 25%.`
+          },
+          {
+            title: "ResearchOps & Repository Strategy",
+            level: "Director",
+            concept: `<h4>Core Concept</h4>
+              <p>Scale research access and preserve insights. Build a research repository in tools like Notion or Dovetail, organizing findings with a standardized tagging system.</p>`,
+            exercise: `<h4>Notion Exercise</h4>
+              <p>Design a tagging schema for user research transcripts, separating findings by feature area and severity level.</p>`,
+            question: "How do you structure a research repository so that product managers can use it independently?",
+            answer: `<strong>STAR Answer:</strong><br>
+              <strong>Situation:</strong> A research repository was neglected because findings were stored in unsearchable PDF files.
+              <br><strong>Task:</strong> Build a repository that product managers can use.
+              <br><strong>Action:</strong> I created a Dovetail workspace organized by user goals and tag values. I set up automated Slack summaries that linked back to specific transcript highlights.
+              <br><strong>Result:</strong> Product manager self-serve search increased by 150%, reducing duplicate research requests.`
+          },
+          {
+            title: "Mixed-Methods Evidence Triangulation",
+            level: "Advanced",
+            concept: `<h4>Core Concept</h4>
+              <p>Combine qualitative user signals (interviews) with quantitative data (telemetry, analytics) to build a robust evidence matrix for product decisions.</p>`,
+            exercise: `<h4>Excel Exercise</h4>
+              <p>Synthesize usability test reports with database event logs to identify the root cause of funnel dropoffs.</p>`,
+            question: "How do you reconcile user feedback that contradicts your telemetry data?",
+            answer: `<strong>STAR Answer:</strong><br>
+              <strong>Situation:</strong> Telemetry showed users completing forms in under 3 minutes, but satisfaction surveys showed low ratings.
+              <br><strong>Task:</strong> Identify the cause of user frustration.
+              <br><strong>Action:</strong> I conducted 10 moderated contextual inquiry sessions. Telemetry tracked speed, but observed users copy-pasting data from external spreadsheets to avoid layout errors.
+              <br><strong>Result:</strong> We added automated integrations to import the spreadsheet data directly, raising satisfaction by 50%.`
+          },
+          {
+            title: "Usability Test Architecture & Protocols",
+            level: "Core",
+            concept: `<h4>Core Concept</h4>
+              <p>Design rigorous moderated and unmoderated usability tests. Define screener requirements, task descriptions, and performance indicators (completion rate, time-on-task).</p>`,
+            exercise: `<h4>Document Exercise</h4>
+              <p>Write a usability testing protocol for a patient billing history component, detailing tasks and criteria.</p>`,
+            question: "How do you conduct usability tests on clinical software where mistakes could affect patient safety?",
+            answer: `<strong>STAR Answer:</strong><br>
+              <strong>Situation:</strong> We needed to test an emergency drug ordering workflow without risking patient safety or health data.
+              <br><strong>Task:</strong> Design a realistic test that mimics a busy ER without actual patient risks.
+              <br><strong>Action:</strong> I built a high-fidelity simulator populated with mock patient profiles and introduced sensory distractions (background noise, interruptions) during tests.
+              <br><strong>Result:</strong> Usability issues were identified and fixed in the simulator, ensuring zero safety failures at launch.`
+          },
+          {
+            title: "Executive Research Communication",
+            level: "Director",
+            concept: `<h4>Core Concept</h4>
+              <p>Frame research findings as business decisions, risks, or bets. Keep executive summaries short, structured, and focused on business value.</p>`,
+            exercise: `<h4>Google Slides Exercise</h4>
+              <p>Draft a 5-slide research readout for executive leaders, focusing on business impact and recommendations.</p>`,
+            question: "How do you present negative usability findings about a feature that the CEO championed?",
+            answer: `<strong>STAR Answer:</strong><br>
+              <strong>Situation:</strong> Usability tests showed that the CEO's favorite feature was confusing users and slowing down tasks.
+              <br><strong>Task:</strong> Deliver this feedback without causing team friction or defensiveness.
+              <br><strong>Action:</strong> I framed the findings as risk mitigation. I showed video highlights of users struggling alongside a slide illustrating the potential business cost of dropoffs.
+              <br><strong>Result:</strong> The CEO approved our proposed design adjustments, and the updated release maintained a 95% task success rate.`
+          },
+          {
+            title: "Quantitative Research Methods & Stats",
+            level: "Advanced",
+            concept: `<h4>Core Concept</h4>
+              <p>Quantify usability improvement. Understand John Brooke's System Usability Scale (SUS) scoring, CSAT calculations, and task completion confidence intervals.</p>`,
+            exercise: `<h4>Excel Exercise</h4>
+              <p>Calculate pre- and post-redesign SUS score changes, checking for statistical significance.</p>`,
+            question: "How do you explain the value of a 5-point SUS score improvement to a non-designer?",
+            answer: `<strong>STAR Answer:</strong><br>
+              <strong>Situation:</strong> Executives wanted to cut design system funding because SUS improvements were viewed as vanity metrics.
+              <br><strong>Task:</strong> Connect the 5-point SUS improvement to business value.
+              <br><strong>Action:</strong> I mapped our SUS database against support ticket logs. I showed that a 5-point SUS increase was associated with a 15% drop in usability-related support calls.
+              <br><strong>Result:</strong> This improvement was projected to save $240,000 annually, securing design system funding.`
+          }
+        ]
+      },
+      {
+        id: "t4",
+        code: "Track 04",
+        title: "Design Systems at Scale",
+        accent: "#BE123C",
+        hours: 16,
+        competency: "Systems",
+        tags: ["Maturity", "Contribution", "API Design", "DS ROI"],
+        summary: "Governance structures, centralized vs. federated operating models, design tokens pipelines, Storybook, and DS ROI metrics.",
+        modules: [
+          {
+            title: "Design System Maturity Models",
+            level: "Core",
+            concept: `<h4>Core Concept</h4>
+              <p>Evaluate your design system's maturity level: ad-hoc, defined, repeatable, managed, or optimizing. Establish a roadmap to scale visual patterns across the organization.</p>`,
+            exercise: `<h4>Notion Exercise</h4>
+              <p>Conduct a design system audit of your product suite, scoring maturity across component coverage and engineering alignment.</p>`,
+            question: "What is the biggest operational blocker to moving a design system from repeatable to managed?",
+            answer: `<strong>STAR Answer:</strong><br>
+              <strong>Situation:</strong> Our design system was used by many teams, but updates and documentation were managed ad-hoc.
+              <br><strong>Task:</strong> Move to a managed model with dedicated governance.
+              <br><strong>Action:</strong> I established a hybrid contribution group, allocating 20% of two developers' and one designer's cycles to core review tasks.
+              <br><strong>Result:</strong> Release cycles fell from 8 weeks to 2 weeks, and component library duplication dropped by 35%.`
+          },
+          {
+            title: "Governance: Centralized vs. Federated",
+            level: "Director",
+            concept: `<h4>Core Concept</h4>
+              <p>Choose an operating model based on organization maturity and product scale. Establish contribution guidelines, code review gates, and decision rights.</p>`,
+            exercise: `<h4>Miro Exercise</h4>
+              <p>Draft an RACI matrix for component proposals, updates, visual reviews, and documentation releases.</p>`,
+            question: "Which contribution model would you recommend for a 50-designer organization?",
+            answer: `<strong>STAR Answer:</strong><br>
+              <strong>Situation:</strong> A centralized team became a bottleneck, slowing feature delivery for 50 designers.
+              <br><strong>Task:</strong> Transition to a scalable contribution model.
+              <br><strong>Action:</strong> I implemented a federated model. I created a Design System Guild with reps from each product line to review and approve component proposals.
+              <br><strong>Result:</strong> Component contributions increased by 300% in 6 months, and feature delivery backlogs fell by 40%.`
+          },
+          {
+            title: "Versioning & Strangler Fig Migrations",
+            level: "Director",
+            concept: `<h4>Core Concept</h4>
+              <p>Apply Semantic Versioning (SemVer) to design system updates. Manage breaking changes and draft migration plans that align developer and designer timelines.</p>`,
+            exercise: `<h4>Document Exercise</h4>
+              <p>Draft a migration guide for a breaking update to a Form input component library.</p>`,
+            question: "How do you coordinate a breaking change across 30 active consuming products?",
+            answer: `<strong>STAR Answer:</strong><br>
+              <strong>Situation:</strong> A major change to input components threatened to break forms across 30 active applications.
+              <br><strong>Task:</strong> Update the inputs without breaking active apps.
+              <br><strong>Action:</strong> I applied a Strangler Fig migration pattern. I released the new inputs under a new package namespace, allowing teams to migrate components screen by screen.
+              <br><strong>Result:</strong> We had zero layout breakages, and all products completed the migration within 2 sprints.`
+          },
+          {
+            title: "Component API & Headless Slots",
+            level: "Advanced",
+            concept: `<h4>Core Concept</h4>
+              <p>Design robust component structures using headless slot patterns. This keeps layout and styling separate from core component behavior.</p>`,
+            exercise: `<h4>Figma Exercise</h4>
+              <p>Build a headless layout slot structure for a modal window component, ensuring support for dynamic child components.</p>`,
+            question: "When should you use a headless component instead of building a pre-styled UI element?",
+            answer: `<strong>STAR Answer:</strong><br>
+              <strong>Situation:</strong> Teams built custom dropdown layouts to bypass hardcoded CSS limits in our system component.
+              <br><strong>Task:</strong> Redesign the dropdown to support customization while maintaining accessibility guidelines.
+              <br><strong>Action:</strong> I built a headless dropdown component. It managed keyboard controls and ARIA attributes while exposing layout slots for custom CSS styling.
+              <br><strong>Result:</strong> Custom overrides fell by 80%, and keyboard navigation remained compliant.`
+          },
+          {
+            title: "Multi-Product & Cross-Platform Systems",
+            level: "Advanced",
+            concept: `<h4>Core Concept</h4>
+              <p>Structure design system tokens and components to support multiple platforms (web, mobile, responsive layout engines) from a single source of truth.</p>`,
+            exercise: `<h4>Figma Exercise</h4>
+              <p>Design a responsive card component, illustrating token adaptation across mobile and desktop views.</p>`,
+            question: "How do you maintain a single source of truth for design tokens across Web and React Native codebases?",
+            answer: `<strong>STAR Answer:</strong><br>
+              <strong>Situation:</strong> Color discrepancies emerged because web developers used CSS variables while mobile developers used JSON values.
+              <br><strong>Task:</strong> Centralize token management across platforms.
+              <br><strong>Action:</strong> I built a token pipeline using Style Dictionary. Designers updated values in Figma, which automatically exported CSS variables and JSON models on build.
+              <br><strong>Result:</strong> Discrepancies fell to zero, and style update loops were cut from days to seconds.`
+          },
+          {
+            title: "Storybook Documentation Architecture",
+            level: "Core",
+            concept: `<h4>Core Concept</h4>
+              <p>Structure your component documentation to support both designers and developers. Integrate Storybook props tables with Figma design canvases.</p>`,
+            exercise: `<h4>Markdown Exercise</h4>
+              <p>Write usage guidelines, prop tables, and visual 'Do/Don't' specs for a Alert banner component.</p>`,
+            question: "How do you ensure documentation stays up to date as developers iterate on components?",
+            answer: `<strong>STAR Answer:</strong><br>
+              <strong>Situation:</strong> Documentation was regularly out of date because updates were manually tracked in Notion.
+              <br><strong>Task:</strong> Keep documentation in sync with codebase changes automatically.
+              <br><strong>Action:</strong> I automated documentation generation using Storybook's CSF formats, pulling props tables directly from source components.
+              <br><strong>Result:</strong> Out-of-date documentation errors fell to zero, saving developers 10 hours of documentation work per release.`
+          },
+          {
+            title: "Design System ROI Math & KPIs",
+            level: "Director",
+            concept: `<h4>Core Concept</h4>
+              <p>Calculate design system ROI. Measure token coverage %, component reuse rates, and engineering hours saved to build investment cases for finance leaders.</p>`,
+            exercise: `<h4>Excel Exercise</h4>
+              <p>Build an engineering time-savings calculator based on component reuse rates and average hourly costs.</p>`,
+            question: "How do you prove the financial value of a design system to a CFO?",
+            answer: `<strong>STAR Answer:</strong><br>
+              <strong>Situation:</strong> The finance team planned to reduce design system funding because its direct ROI was unclear.
+              <br><strong>Task:</strong> Present a clear, quantitative business case for the system.
+              <br><strong>Action:</strong> I tracked component imports across 12 active repositories. I calculated that reuse saved approximately 18,000 engineering hours annually.
+              <br><strong>Result:</strong> This represented $900,000 in saved engineering costs, securing our budget and adding two engineers to our team.`
+          },
+          {
+            title: "Providence DS Case Study Deconstruction",
+            level: "Director",
+            concept: `<h4>Core Concept</h4>
+              <p>Frame design system initiatives using the IMPACT framework: Industry context, Methods used, Problem scale, Architecture choices, Craft quality, and Transformation results.</p>`,
+            exercise: `<h4>Notion Exercise</h4>
+              <p>Conduct a design system audit of your product suite, scoring maturity across component coverage and engineering alignment.</p>`,
+            question: "Walk me through your most challenging design system project and the outcomes you achieved.",
+            answer: `<strong>STAR Answer:</strong><br>
+              <strong>Situation:</strong> The Providence system lacked support for light/dark modes and multi-brand variations, slowing down feature launches.
+              <br><strong>Task:</strong> Lead the redesign of the system token architecture across web and mobile platforms.
+              <br><strong>Action:</strong> I redesigned our tokens into a 3-tier structure using Style Dictionary. I set up hybrid contribution models with design system leads.
+              <br><strong>Result:</strong> Feature launch times fell by 30%, and code styling errors dropped by 75% across 8 clinical products.`
+          }
+        ]
+      },
+      {
+        id: "t5",
+        code: "Track 05",
+        title: "Design Strategy and Leadership",
+        accent: "#6D28D9",
+        hours: 12,
+        competency: "Leadership",
+        tags: ["Org Design", "DesignOps", "OKRs", "Influence"],
+        summary: "Design organization models, DesignOps maturity frameworks, writing design OKRs, and executive influence strategy.",
+        modules: [
+          {
+            title: "Design Org Architecture Models",
+            level: "Core",
+            concept: `<h4>Core Concept</h4>
+              <p>Understand the trade-offs of centralized, embedded, and hybrid design team structures. Align design ratios to resource needs and company growth stages.</p>`,
+            exercise: `<h4>Miro Exercise</h4>
+              <p>Draw an organizational chart for a 40-person design group, detailing reporting lines and resource allocations.</p>`,
+            question: "When is it appropriate to transition from an embedded design model to a hybrid model?",
+            answer: `<strong>STAR Answer:</strong><br>
+              <strong>Situation:</strong> Embedded designers worked in siloes, creating inconsistent patterns and duplicate layouts.
+              <br><strong>Task:</strong> Improve design consistency across teams without slowing down feature delivery.
+              <br><strong>Action:</strong> I introduced a hybrid model. I kept designers in feature teams but established weekly design critiques and shared guild reviews.
+              <br><strong>Result:</strong> Component consistency across products rose by 50% without affecting launch timelines.`
+          },
+          {
+            title: "DesignOps Maturity (DMI Framework)",
+            level: "Advanced",
+            concept: `<h4>Core Concept</h4>
+              <p>Conduct a DesignOps audit using the DMI maturity framework. Standardize team processes, tooling, career tracks, and review cadences.</p>`,
+            exercise: `<h4>Notion Exercise</h4>
+              <p>Design a career progression matrix for a design team, defining performance standards for senior and principal levels.</p>`,
+            fontName: "Inter",
+            question: "How do you identify and prioritize process issues in a scaling design team?",
+            answer: `<strong>STAR Answer:</strong><br>
+              <strong>Situation:</strong> A team grew from 5 to 20 designers, leading to misaligned workflows and high designer turnover.
+              <br><strong>Task:</strong> Standardize processes to improve retention and product quality.
+              <br><strong>Action:</strong> I conducted a DesignOps audit. I standardized our tools (consolidating 4 tools to Figma) and structured our career paths.
+              <br><strong>Result:</strong> Turnover fell to zero, and design sprint onboarding velocity improved by 40%.`
+          },
+          {
+            title: "OKR Writing for Design Orgs",
+            level: "Director",
+            concept: `<h4>Core Concept</h4>
+              <p>Write measurable design OKRs. Align design key results (e.g. component adoption %, accessibility compliance, SUS score) with product goals.</p>`,
+            exercise: `<h4>Notion Exercise</h4>
+              <p>Write three quarterly OKRs for a design team, detailing measurable key results.</p>`,
+            question: "How do you align design OKRs with engineering priorities in a fast-paced sprint cycle?",
+            answer: `<strong>STAR Answer:</strong><br>
+              <strong>Situation:</strong> Engineering teams ignored design system OKRs because their focus was on feature velocity.
+              <br><strong>Task:</strong> Align OKRs so both teams shared accountability.
+              <br><strong>Action:</strong> I helped establish a shared OKR: 'Reduce front-end styling debt by 25%'. This linked our design system goals with their refactoring priorities.
+              <br><strong>Result:</strong> Engineering velocity increased by 15%, and system adoption grew by 40% in a single quarter.`
+          },
+          {
+            title: "Executive Influence & Wardley Maps",
+            level: "Director",
+            concept: `<h4>Core Concept</h4>
+              <p>Construct Wardley maps to locate where design capabilities provide competitive advantage. Build executive presentations that explain design decisions in business terms.</p>`,
+            exercise: `<h4>Figma Exercise</h4>
+              <p>Draw a Wardley map illustrating the design capability pipeline for a patient check-in portal.</p>`,
+            question: "How do you explain the value of user experience improvements to a CEO who is focused on feature count?",
+            answer: `<strong>STAR Answer:</strong><br>
+              <strong>Situation:</strong> The CEO planned to postpone usability updates to prioritize a list of new features.
+              <br><strong>Task:</strong> Pivot priorities to address high-friction usability issues first.
+              <br><strong>Action:</strong> I mapped our customer journey and showed how dropoffs at the registration phase cost an estimated $120,000 monthly.
+              <br><strong>Result:</strong> The CEO approved our registration redesign, recovering $95,000 in monthly revenue.`
+          },
+          {
+            title: "HEART Metrics & Dashboards",
+            level: "Advanced",
+            concept: `<h4>Core Concept</h4>
+              <p>Build UX dashboards tracking Google HEART metrics (Happiness, Engagement, Adoption, Retention, Task Success) to measure product experience health.</p>`,
+            exercise: `<h4>Excel Exercise</h4>
+              <p>Draft a product experience dashboard tracking usability metrics and active user trends.</p>`,
+            question: "Which HEART framework metric is most critical when launching a new B2B product?",
+            answer: `<strong>STAR Answer:</strong><br>
+              <strong>Situation:</strong> A new diagnostic app had high sign-up numbers, but active usage was low.
+              <br><strong>Task:</strong> Measure product adoption and identify dropoffs.
+              <br><strong>Action:</strong> I set up a dashboard tracking task success and retention. I discovered that users dropped off during initial setup.
+              <br><strong>Result:</strong> We updated our onboarding flow, raising 30-day retention by 60%.`
+          },
+          {
+            title: "First 30 Days as UX Director",
+            level: "Director",
+            concept: `<h4>Core Concept</h4>
+              <p>Plan your transition to leadership. Diagnose organizational maturity, build cross-functional trust, and establish early wins.</p>`,
+            exercise: `<h4>Document Exercise</h4>
+              <p>Draft your first 30-day plan as an incoming UX Director, listing key stakeholder meetings and audit goals.</p>`,
+            question: "What is your top priority in your first 30 days in a new UX Director role?",
+            answer: `<strong>STAR Answer:</strong><br>
+              <strong>Situation:</strong> Incoming design leaders often attempt to restructure workflows immediately, causing friction.
+              <br><strong>Task:</strong> Build trust and evaluate organization needs before proposing changes.
+              <br><strong>Action:</strong> I set up interviews with 15 key engineering, product, and business stakeholders to identify their main pain points.
+              <br><strong>Result:</strong> I identified a shared workflow bottleneck, resolved it, and established a foundation for future process improvements.`
+          }
+        ]
+      },
+      {
+        id: "t6",
+        code: "Track 06",
+        title: "AI-Augmented UX",
+        accent: "#15803D",
+        hours: 10,
+        competency: "AI",
+        tags: ["Workflows", "Prompts", "Ethics", "Patterns"],
+        summary: "AI-native design workflows (Figma Make, Claude AI, Google Stitch), prompt library structure, and ethical AI safety patterns.",
+        modules: [
+          {
+            title: "AI-Native Design Workflows",
+            level: "Core",
+            concept: `<h4>Core Concept</h4>
+              <p>Integrate AI tools (Figma Make, Claude, Google Stitch) into your design process. Use AI to automate layout explorations and component spec writing while maintaining design quality.</p>`,
+            exercise: `<h4>Miro Exercise</h4>
+              <p>Draw a process map illustrating how to integrate AI tools into your team's design and documentation workflows.</p>`,
+            question: "How do you prevent AI tools from creating inconsistent patterns in your design library?",
+            answer: `<strong>STAR Answer:</strong><br>
+              <strong>Situation:</strong> Designers used Figma Make to generate mockups that ignored design system component rules.
+              <br><strong>Task:</strong> Keep generated designs aligned with system guidelines.
+              <br><strong>Action:</strong> I created an AI review checklist. We set up prompt schemas that required AI tools to reference our design system library.
+              <br><strong>Result:</strong> Design consistency remained high, while layout draft creation speed improved by 50%.`
+          },
+          {
+            title: "Design Prompt Library Architecture",
+            level: "Core",
+            concept: `<h4>Core Concept</h4>
+              <p>Build a shared prompt library in Notion. Standardize prompts for common design tasks like writing UX copy, running competitive audits, and generating specifications.</p>`,
+            exercise: `<h4>Notion Exercise</h4>
+              <p>Create five structured, reusable prompts for component auditing and accessibility checking tasks.</p>`,
+            question: "How do you write a prompt that generates an accurate, high-quality component specification?",
+            answer: `<strong>STAR Answer:</strong><br>
+              <strong>Situation:</strong> Basic prompt templates returned generic copy that did not meet our documentation standards.
+              <br><strong>Task:</strong> Build a prompt template that returns accurate specifications.
+              <br><strong>Action:</strong> I designed a prompt structure with clear sections: role, context, component constraints, prop models, and markup examples.
+              <br><strong>Result:</strong> Spec draft generation time fell by 80%, and teams saved hours of documentation writing.`
+          },
+          {
+            title: "Ethical AI Patterns & Safety Gates",
+            level: "Advanced",
+            concept: `<h4>Core Concept</h4>
+              <p>Design safety features for AI interfaces. Implement explainable AI patterns, error states, progressive confidence indicators, and human-in-the-loop validation steps.</p>`,
+            exercise: `<h4>Figma Exercise</h4>
+              <p>Design the user flow and interface for an AI-assisted clinical note generator, showing error states and data checks.</p>`,
+            question: "How do you design an interface that handles AI errors and hallucinations safely in a clinical app?",
+            answer: `<strong>STAR Answer:</strong><br>
+              <strong>Situation:</strong> An AI model generated diagnostic drafts that occasionally contained data errors, presenting safety risks.
+              <br><strong>Task:</strong> Design an interface that ensures clinicians review all AI-generated content before saving.
+              <br><strong>Action:</strong> I designed an editing workflow. AI-generated text was displayed in an editable state with warning highlights, requiring manual approval for each section.
+              <br><strong>Result:</strong> Clinicians reviewed 100% of drafts, and verification errors fell to zero.`
+          },
+          {
+            title: "Wrapper vs. Native Interaction",
+            level: "Advanced",
+            concept: `<h4>Core Concept</h4>
+              <p>Determine when AI should be a background feature versus when it should drive the primary user interface. Design streaming answers and input mechanisms.</p>`,
+            exercise: `<h4>Figma Exercise</h4>
+              <p>Design a conversational sidebar component that supports streaming text and rich interactive components.</p>`,
+            question: "When should you use a conversational chat interface instead of standard UI controls?",
+            answer: `<strong>STAR Answer:</strong><br>
+              <strong>Situation:</strong> Users found a complex reporting search form confusing, leading to high dropoff rates.
+              <br><strong>Task:</strong> Simplify search selection for non-technical users.
+              <br><strong>Action:</strong> I introduced a conversational query builder alongside the standard form controls, permitting users to search using natural language.
+              <br><strong>Result:</strong> Form completion rates rose by 45%, and user satisfaction scores doubled.`
+          },
+          {
+            title: "AI Design Critique & QA Systems",
+            level: "Director",
+            concept: `<h4>Core Concept</h4>
+              <p>Use AI to audit layouts for visual alignment, contrast, accessibility guidelines, and missing states before developer handoff.</p>`,
+            exercise: `<h4>Claude / Figma Exercise</h4>
+              <p>Use Claude vision prompts to audit a dashboard mockup, listing layout issues and contrast warnings.</p>`,
+            question: "How do you scale design quality reviews in an organization with 30 active developers and only 2 designers?",
+            answer: `<strong>STAR Answer:</strong><br>
+              <strong>Situation:</strong> 2 designers were a bottleneck for reviews, resulting in styling issues reaching production.
+              <br><strong>Task:</strong> Scale review capacity without adding design headcount.
+              <br><strong>Action:</strong> I configured an AI script that compared Figma mockups against code screenshots during pull requests.
+              <br><strong>Result:</strong> 85% of styling regressions were caught in the pipeline, reducing designer review loads.`
+          }
+        ]
+      },
+      {
+        id: "t7",
+        code: "Track 07",
+        title: "Interview Mastery",
+        accent: "#A16207",
+        hours: 20,
+        competency: "Interviews",
+        tags: ["Whiteboard", "Narratives", "Behavioral", "STAR"],
+        summary: "Answering strategies for CEO, CTO, CPO, and VP Design interviews, whiteboard layouts, and STAR response frameworks.",
+        modules: [
+          {
+            title: "The Principal UX Career Narrative",
+            level: "Core",
+            concept: `<h4>Core Concept</h4>
+              <p>Position your career path. Frame your experience around system architecture, leadership impact, and domain expertise rather than visual design alone.</p>`,
+            exercise: `<h4>Document Exercise</h4>
+              <p>Write your 90-second elevator pitch and your 5-minute career summary narrative.</p>`,
+            question: "Walk me through your career journey and explain what makes you ready for a Principal role.",
+            answer: `<strong>STAR Answer:</strong><br>
+              <strong>Situation:</strong> Pitching yourself as a hands-on designer fails to demonstrate readiness for Principal-level governance.
+              <br><strong>Task:</strong> Frame my 16-year career as a progression from visual craft to system architecture and organizational leadership.
+              <br><strong>Action:</strong> I structured my story around three phases: craft foundation, scale leadership (establishing the design system at Providence), and strategic influence (connecting UX metrics to business outcomes).
+              <br><strong>Result:</strong> This framing establishes executive presence, positioning me as an architect who leads strategic initiatives.`
+          },
+          {
+            title: "CEO Lens: Business Value & ROI",
+            level: "Director",
+            concept: `<h4>Core Concept</h4>
+              <p>Rehearse business-focused answers. Frame design choices in terms of risk mitigation, product adoption, retention, and metrics that matter to CEOs.</p>`,
+            exercise: `<h4>Document Exercise</h4>
+              <p>Draft responses to three CEO-level questions using metrics from your Providence case studies.</p>`,
+            question: "Why should we invest in UX research rather than launching features faster?",
+            answer: `<strong>STAR Answer:</strong><br>
+              <strong>Situation:</strong> Leaders often view research as a bottleneck that delays launch dates.
+              <br><strong>Task:</strong> Reframer research as a risk reduction tool that speeds up product delivery.
+              <br><strong>Action:</strong> I showed how launching a patient check-in feature without research failed, resulting in $80,000 in rework costs. I demonstrated how a subsequent 2-week research sprint prevented similar errors.
+              <br><strong>Result:</strong> Research was funded, reducing developer rework by 40% and shortening delivery timelines.`
+          },
+          {
+            title: "CTO Lens: Tech Feasibility & APIs",
+            level: "Director",
+            concept: `<h4>Core Concept</h4>
+              <p>Rehearse feasibility-focused answers. Discuss code constraints, component slot APIs, semver updates, and design token pipelines with engineering leaders.</p>`,
+            exercise: `<h4>Document Exercise</h4>
+              <p>Draft answers to three CTO-level questions, explaining design system versioning and performance choices.</p>`,
+            question: "How do you prevent design system changes from breaking our front-end builds?",
+            answer: `<strong>STAR Answer:</strong><br>
+              <strong>Situation:</strong> Updates to global style variables regularly broke layouts in feature repositories.
+              <br><strong>Task:</strong> Implement a system update pipeline that does not break builds.
+              <br><strong>Action:</strong> I aligned our releases with SemVer. We introduced visual regression tests in CI and published clear migration docs for major updates.
+              <br><strong>Result:</strong> Build breakage rates fell to zero, and dev confidence in system updates rose.`
+          },
+          {
+            title: "CPO Lens: OKR Alignment & Velocity",
+            level: "Director",
+            concept: `<h4>Core Concept</h4>
+              <p>Rehearse product-focused answers. Frame design priorities in terms of RICE rankings, feature velocity, and business goal alignment.</p>`,
+            exercise: `<h4>Document Exercise</h4>
+              <p>Draft answers to three CPO-level questions, explaining prioritize decisions and design debt tradeoffs.</p>`,
+            question: "How do you manage trade-offs between design quality and feature launch speed?",
+            answer: `<strong>STAR Answer:</strong><br>
+              <strong>Situation:</strong> A product manager wanted to bypass accessibility checks to launch a patient dashboard early.
+              <br><strong>Task:</strong> Maintain quality standards while meeting launch targets.
+              <br><strong>Action:</strong> I proposed a phased release model: launch with core accessible elements on day one, and schedule updates for secondary views in the next sprint.
+              <br><strong>Result:</strong> The launch stayed on schedule, compliance was maintained, and accessibility issues stayed below 3%.`
+          },
+          {
+            title: "VP Design Lens: Craft & Critique",
+            level: "Director",
+            concept: `<h4>Core Concept</h4>
+              <p>Rehearse design-focused answers. Demonstrate taste, design standards, critique frameworks, and designer development strategies.</p>`,
+            exercise: `<h4>Document Exercise</h4>
+              <p>Draft answers to three VP Design-level questions, explaining how you evaluate design quality.</p>`,
+            question: "How do you handle a senior designer who refuses to accept feedback from team reviews?",
+            answer: `<strong>STAR Answer:</strong><br>
+              <strong>Situation:</strong> A designer ignored layout critique, creating inconsistent visual styles in their feature repository.
+              <br><strong>Task:</strong> Align the designer with team standards without causing conflict.
+              <br><strong>Action:</strong> I sat down with the designer privately. I shifted the review focus from subjective critique to objective system benchmarks and design system guides.
+              <br><strong>Result:</strong> The designer adopted the system standards, and team review participation improved.`
+          },
+          {
+            title: "Amazon-Style Behavioral Loop",
+            level: "Advanced",
+            concept: `<h4>Core Concept</h4>
+              <p>Construct STAR answers for core leadership principles: customer obsession, ownership, bias for action, and invent-and-simplify.</p>`,
+            exercise: `<h4>Document Exercise</h4>
+              <p>Draft four behavioral responses, linking your Providence experiences to Amazon leadership principles.</p>`,
+            question: "Tell me about a time you took a risk and failed, and what you learned from the experience.",
+            answer: `<strong>STAR Answer:</strong><br>
+              <strong>Situation:</strong> I launched a patient notification model without validating it with clinical administrators, assuming standard patterns would apply.
+              <br><strong>Task:</strong> Resolve notification delivery failures.
+              <br><strong>Action:</strong> The notifications were missed because clinical staff did not monitor mobile screens. I paused the feature, ran contextual interviews, and redesigned the notification route to alert desktop views instead.
+              <br><strong>Result:</strong> Notification review rates rose to 98%, and I established a rule requiring administrative validation for workflow alerts.`
+          },
+          {
+            title: "Whiteboard Challenge Frameworks",
+            level: "Advanced",
+            concept: `<h4>Core Concept</h4>
+              <p>Structure whiteboard challenges. Use visual mapping to clarify constraints, define user goals, outline systems, and list tradeoffs under tight timelines.</p>`,
+            exercise: `<h4>Figma Exercise</h4>
+              <p>Run a 45-minute practice whiteboard challenge, documenting your visual layout and annotations.</p>`,
+            question: "Design an enterprise permission system for a clinical system with 5 distinct roles.",
+            answer: `<strong>STAR Answer:</strong><br>
+              <strong>Situation:</strong> Whiteboard challenges can easily get bogged down in detail without a structured approach.
+              <br><strong>Task:</strong> Map a complex permission structure visually in 45 minutes.
+              <br><strong>Action:</strong> I structured my approach: I spent 5 minutes defining user groups, 15 minutes mapping database objects, 15 minutes drafting screen flows, and 10 minutes listing edge cases.
+              <br><strong>Result:</strong> This structured approach allows me to demonstrate system-level thinking and present clear layouts under pressure.`
+          },
+          {
+            title: "Design System Deep Dive Drill",
+            level: "Director",
+            concept: `<h4>Core Concept</h4>
+              <p>Rehearse design system technical answers. Defend token schemas, component variants, governance rules, and adoption KPIs.</p>`,
+            exercise: `<h4>Document Exercise</h4>
+              <p>Draft answers to five design system technical questions, detailing token structures and contribution models.</p>`,
+            question: "How do you decide when to build a new component versus updating an existing element?",
+            answer: `<strong>STAR Answer:</strong><br>
+              <strong>Situation:</strong> Product teams regularly created new components for minor visual variations, bloating our code library.
+              <br><strong>Task:</strong> Implement clear guidelines to manage component creation.
+              <br><strong>Action:</strong> I created a Component Evaluation Flowchart based on component intent and behavior. Teams were required to run through this flowchart before proposing new elements.
+              <br><strong>Result:</strong> Component bloat fell by 50%, and library maintenance overhead was reduced.`
+          },
+          {
+            title: "Portfolio Walkthrough Scripts",
+            level: "Core",
+            concept: `<h4>Core Concept</h4>
+              <p>Script your case study presentations. Structure your narrative around system-level decisions and outcomes rather than visual design mockups.</p>`,
+            exercise: `<h4>Document Exercise</h4>
+              <p>Write a script for your Providence case study presentation, detailing key milestones and outcomes.</p>`,
+            question: "Walk me through your flagship case study and explain the decisions you made.",
+            answer: `<strong>STAR Answer:</strong><br>
+              <strong>Situation:</strong> Presenting case studies chronologically can obscure your system-level decisions and business impact.
+              <br><strong>Task:</strong> Structure the walkthrough to highlight system architecture and outcomes.
+              <br><strong>Action:</strong> I structured the deck around the IMPACT framework, focusing 70% of the time on token architecture decisions, governance models, and adoption metrics.
+              <br><strong>Result:</strong> This keeps the focus on design leadership and measurable business value, demonstrating readiness for Principal-level roles.`
+          },
+          {
+            title: "Compensation & Offer Negotiation",
+            level: "Advanced",
+            concept: `<h4>Core Concept</h4>
+              <p>Evaluate and negotiate compensation. Structure total compensation discussions (base, bonus, equity) and evaluate title and reporting lines.</p>`,
+            exercise: `<h4>Document Exercise</h4>
+              <p>Create an offer evaluation spreadsheet comparing base salary, bonuses, and equity grants.</p>`,
+            question: "What are your total compensation expectations for this Principal UX role?",
+            answer: `<strong>STAR Answer:</strong><br>
+              <strong>Situation:</strong> Sharing a salary expectation early in discussions can limit your negotiation leverage.
+              <br><strong>Task:</strong> Discuss compensation expectations without losing leverage.
+              <br><strong>Action:</strong> I deferred specific salary figures and asked about the range for the role. I aligned my expectations with industry benchmarks for total compensation (base, bonus, equity).
+              <br><strong>Result:</strong> This approach keeps negotiations open and ensures compensation aligns with industry standards.`
+          }
+        ]
+      },
+      {
+        id: "t8",
+        code: "Track 08",
+        title: "Portfolio Architecture",
+        accent: "#0F5F7A",
+        hours: 18,
+        competency: "Portfolio",
+        tags: ["Strategy", "IMPACT", "Behance", "Case Studies"],
+        summary: "IMPACT case-study outline, Providence DS, healthcare workflows, Behance repackaging, and portfolio audits.",
+        modules: [
+          {
+            title: "Principal Portfolio Strategy",
+            level: "Core",
+            concept: `<h4>Core Concept</h4>
+              <p>Align your portfolio with Principal-level expectations. Focus on systems thinking, design governance, and business impact rather than visual mockups.</p>`,
+            exercise: `<h4>Notion Exercise</h4>
+              <p>Audit your current portfolio against Principal standards, identifying visual and narrative gaps.</p>`,
+            question: "What must a Principal-level portfolio prove in the first 30 seconds?",
+            answer: `<strong>STAR Answer:</strong><br>
+              <strong>Situation:</strong> Recruiters review portfolios quickly, and layout lists can fail to show system leadership.
+              <br><strong>Task:</strong> Redesign the portfolio home page to show systems thinking and impact immediately.
+              <br><strong>Action:</strong> I restructured the home page to highlight my role as a design system lead, listing metrics (reuse rates, engineering hours saved) alongside links to key case studies.
+              <br><strong>Result:</strong> This design hooks hiring managers quickly, setting a professional tone from the start.`
+          },
+          {
+            title: "IMPACT Case Study Outline",
+            level: "Advanced",
+            concept: `<h4>Core Concept</h4>
+              <p>Structure your case studies using the IMPACT framework: Industry context, Methods used, Problem scale, Architecture decisions, Craft quality, and Transformation results.</p>`,
+            exercise: `<h4>Document Exercise</h4>
+              <p>Draft an outline for your Providence design system case study using the IMPACT framework.</p>`,
+            question: "How do you present design tradeoffs clearly in a case study narrative?",
+            answer: `<strong>STAR Answer:</strong><br>
+              <strong>Situation:</strong> Case studies often present design decisions as straightforward, failing to show the complexity of real-world tradeoffs.
+              <br><strong>Task:</strong> Restructure the narrative to illustrate trade-offs and decision criteria.
+              <br><strong>Action:</strong> I added a dedicated 'Tradeoffs' section to each case study, outlining alternative solutions and explaining why we made our specific choice.
+              <br><strong>Result:</strong> This structure demonstrates design maturity, showing that decisions are based on data and business needs.`
+          },
+          {
+            title: "Providence Design System Story",
+            level: "Director",
+            concept: `<h4>Core Concept</h4>
+              <p>Frame your design system work as a business infrastructure project. Detail token architecture, hybrid governance models, accessibility workflows, and adoption metrics.</p>`,
+            exercise: `<h4>Notion Exercise</h4>
+              <p>Write out the sections of your design system case study, detailing token structures and adoption KPIs.</p>`,
+            question: "How do you present design system work in a way that shows leadership value?",
+            answer: `<strong>STAR Answer:</strong><br>
+              <strong>Situation:</strong> Presenting design system work as a collection of component libraries fails to show leadership impact.
+              <br><strong>Task:</strong> Restructure the case study to focus on team enablement and engineering savings.
+              <br><strong>Action:</strong> I reframed the case study to highlight governance systems, Style Dictionary automation, and business outcomes (hours saved, code consistency).
+              <br><strong>Result:</strong> This frames the project as a strategic business asset, showing readiness for leadership roles.`
+          },
+          {
+            title: "Healthcare Workflow Case Study",
+            level: "Advanced",
+            concept: `<h4>Core Concept</h4>
+              <p>Draft case studies showing clinical workflow redesigns (e.g. EHRs, patient systems) under regulatory constraints, prioritizing safety and WCAG compliance.</p>`,
+            exercise: `<h4>Notion Exercise</h4>
+              <p>Draft the outline for a clinical workflow case study, detailing safety criteria and task success rates.</p>`,
+            question: "How do you write a case study about complex clinical software without violating patient privacy (HIPAA)?",
+            answer: `<strong>STAR Answer:</strong><br>
+              <strong>Situation:</strong> Showing patient data in case studies violates privacy rules, but abstract mockups fail to show workflow complexity.
+              <br><strong>Task:</strong> Create realistic, compliant mockups that show workflow depth.
+              <br><strong>Action:</strong> I rebuilt my mockups using realistic, synthetic patient data and generic clinical categories, focusing the narrative on layout architecture and task navigation.
+              <br><strong>Result:</strong> The case study remained compliant with privacy regulations while demonstrating design quality and workflow depth.`
+          },
+          {
+            title: "AI-Augmented Design Case Study",
+            level: "Advanced",
+            concept: `<h4>Core Concept</h4>
+              <p>Draft a case study showing how you integrated AI tools (Figma Make, Claude) into design operations to improve speed, while maintaining quality reviews.</p>`,
+            exercise: `<h4>Notion Exercise</h4>
+              <p>Draft the outline for an AI-augmented DesignOps case study, detailing prompt structures and review workflows.</p>`,
+            question: "How do you present AI-augmented work in a portfolio without reducing your design value?",
+            answer: `<strong>STAR Answer:</strong><br>
+              <strong>Situation:</strong> Explaining that designs were generated by AI can lead reviewers to overlook your design skills.
+              <br><strong>Task:</strong> Frame AI use as process innovation and design management.
+              <br><strong>Action:</strong> I presented AI as a tool for rapid iteration and automation. I focused the narrative on prompt design, review gates, and visual quality standards.
+              <br><strong>Result:</strong> This frames my work as design system leadership and process innovation, showing readiness for modern design leadership roles.`
+          },
+          {
+            title: "Behance & LinkedIn Packaging",
+            level: "Core",
+            concept: `<h4>Core Concept</h4>
+              <p>Package your public profile. Update titles, summaries, and portfolio cover sheets to align with target Principal and Director roles.</p>`,
+            exercise: `<h4>Document Exercise</h4>
+              <p>Draft update summaries for your LinkedIn and Behance bios, highlighting systems thinking and design leadership.</p>`,
+            question: "How should you update your LinkedIn bio when transitioning from IC designer to design lead?",
+            answer: `<strong>STAR Answer:</strong><br>
+              <strong>Situation:</strong> A resume listing only layout tasks fails to show systems thinking and design leadership.
+              <br><strong>Task:</strong> Update the LinkedIn bio to highlight strategic impact and system-level achievements.
+              <br><strong>Action:</strong> I rewrote my bio, emphasizing design system leadership at Providence Global Center and my CUA certification.
+              <br><strong>Result:</strong> This updates my professional positioning, attracting recruiters for Principal and Director roles.`
+          },
+          {
+            title: "Portfolio Review Checklist",
+            level: "Director",
+            concept: `<h4>Core Concept</h4>
+              <p>Audit your portfolio against common hiring manager criteria, identifying visual inconsistencies and narrative gaps before applying.</p>`,
+            exercise: `<h4>Document Exercise</h4>
+              <p>Conduct a self-audit of your case studies, listing updates and layout fixes.</p>`,
+            question: "How do you identify which case studies to showcase and which to archive?",
+            answer: `<strong>STAR Answer:</strong><br>
+              <strong>Situation:</strong> Portfolios containing too many legacy projects can obscure your best, most relevant work.
+              <br><strong>Task:</strong> Audit and select the best projects for your target roles.
+              <br><strong>Action:</strong> I audited my portfolio and archived older visual projects, choosing to highlight three high-leverage case studies (design systems, workflows, AI operations).
+              <br><strong>Result:</strong> This keeps the portfolio focused on high-impact projects, presenting a clear, professional story to hiring managers.`
+          }
+        ]
+      }
+    ];
+
+    const interviews = [
+      {
+        lens: "CEO",
+        difficulty: "⭐⭐⭐⭐⭐",
+        question: "How will your UX architecture work change business outcomes, not just interface quality?",
+        asset: "Providence healthcare scale, design system metrics, and risk reduction.",
+        answer: "As an architect, I look at design as a way to reduce risk and save costs. In complex fields like healthcare, design errors can lead to expensive data mistakes or patient safety issues. For example, by organizing the information architecture of our clinical system, we reduced clinician data errors by 35%. Additionally, our design system saved $900,000 in engineering time by reducing duplicate styling work. Good design improves user satisfaction, but at scale, it also drives business efficiency and reduces operational costs."
+      },
+      {
+        lens: "CTO",
+        difficulty: "⭐⭐⭐⭐⭐",
+        question: "How do you align design-system architecture with engineering architecture?",
+        asset: "W3C DTCG design tokens, component slots API, SemVer updates, and CI pipelines.",
+        answer: "I treat the design system as a shared contract between design and engineering. We use Style Dictionary to build a automated token pipeline: design variables are updated in Figma and automatically exported as CSS variables and JSON models on build. Our components use headless slot patterns, keeping layout and styling separate from core component behavior. We manage updates using Semantic Versioning (SemVer), and compile migration guides for major changes, ensuring design updates do not break front-end builds."
+      },
+      {
+        lens: "CPO",
+        difficulty: "⭐⭐⭐⭐",
+        question: "How do you manage trade-offs between design quality and feature launch speed?",
+        asset: "Phased release models, design debt tracking, and RICE prioritization.",
+        answer: "I use a phased implementation model to balance design quality with launch targets. When timelines are tight, I work with the product manager to identify core accessible elements and high-impact interactions for the first release. We document non-critical design updates in our design debt backlog, scheduling them for upcoming sprints. This allows us to launch on time while maintaining a plan to address remaining usability details, keeping feature velocity aligned with design quality."
+      },
+      {
+        lens: "Director",
+        difficulty: "⭐⭐⭐⭐⭐",
+        question: "What is your quality bar for Principal-level design work?",
+        asset: "Design system patterns, accessibility guidelines, and critique rituals.",
+        answer: "A high-quality design must be useful, coherent, accessible, and adopted by our teams. I evaluate layouts against our design system patterns, WCAG 2.2 AA accessibility guidelines, and core user workflows. To scale these standards, I establish design critique rituals where layouts are audited for interaction states, edge cases, and accessibility standards. This shifts the focus from subjective feedback to objective benchmarks, raising the design quality bar across our products."
+      },
+      {
+        lens: "Behavioral",
+        difficulty: "⭐⭐⭐⭐",
+        question: "Tell me about a time you pushed back on a product requirement. What was the outcome?",
+        asset: "Providence patient portal billing redesign, user testing results.",
+        answer: "Product managers wanted to merge our billing history views into a single, dense table to speed up development. I pushed back, showing user testing results that indicated the dense layout confused users and raised support call volume. I proposed a simplified layout with tabbed views, showing that it reduced task completion time. The team adopted the tabbed design, keeping support call rates low and demonstrating the value of user testing in product decisions."
+      },
+      {
+        lens: "Whiteboard",
+        difficulty: "⭐⭐⭐⭐⭐",
+        question: "Design an enterprise permission system for a clinical system with 5 distinct roles.",
+        asset: "Information architecture patterns, role-based navigation, site taxonomy maps.",
+        answer: "I start by mapping our user groups and their primary database objects. I design a role-based navigation model: clinicians use a high-density, context-focused layout to manage patient charts, while administrators use a list-heavy design to manage schedules and billing. I establish a common taxonomy header and search bar across views, using progressive disclosure to keep layouts clean, ensuring the navigation structure meets the needs of each user group."
+      }
+    ];
+
+    // ══════════════ STATE MANAGEMENT ══════════════
+    const STORAGE_KEY = "ux_architect_course_completed";
+    const state = {
+      completed: new Set(JSON.parse(localStorage.getItem(STORAGE_KEY) || "[]")),
+      openModule: null
+    };
+
+    const saveState = () => {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify([...state.completed]));
+    };
+
+    // Calculate dynamic ID for a module
+    const getModuleId = (trackIndex, moduleIndex) => `t${trackIndex + 1}-m${moduleIndex + 1}`;
+
+    // ══════════════ VIEW CONTROLLERS ══════════════
+
+    // 1. Sidebar Navigation Link Highlighting
+    const sections = document.querySelectorAll('section, header');
+    const navLinks = document.querySelectorAll('.nav-link');
+    const sidebar = document.getElementById('sidebar');
+    const menuBtn = document.getElementById('menuBtn');
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          navLinks.forEach(link => link.classList.remove('active'));
+          const activeLink = document.querySelector(`.nav-link[href="#${entry.target.id}"]`);
+          if (activeLink) activeLink.classList.add('active');
+        }
+      });
+    }, { rootMargin: '-15% 0px -75% 0px' });
+
+    sections.forEach(sec => observer.observe(sec));
+
+    navLinks.forEach(link => {
+      link.addEventListener('click', e => {
+        e.preventDefault();
+        const targetId = link.getAttribute('href');
+        const targetSec = document.querySelector(targetId);
+        if (targetSec) {
+          targetSec.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          sidebar.classList.remove('open');
+        }
+      });
+    });
+
+    menuBtn.addEventListener('click', () => {
+      sidebar.classList.toggle('open');
+    });
+
+    // 2. Render Track Filters dropdown
+    function renderFilters() {
+      const select = document.getElementById('trackFilter');
+      tracks.forEach((track, i) => {
+        const opt = document.createElement('option');
+        opt.value = `t${i + 1}`;
+        opt.textContent = `${track.code}: ${track.title}`;
+        select.appendChild(opt);
+      });
+    }
+
+    // 3. Render Track Cards Dashboard
+    function renderTrackDashboard() {
+      const grid = document.getElementById('trackGrid');
+      grid.innerHTML = '';
+
+      tracks.forEach((track, trackIdx) => {
+        const doneCount = track.modules.filter((_, modIdx) => state.completed.has(getModuleId(trackIdx, modIdx))).length;
+        const totalCount = track.modules.length;
+        const pct = totalCount > 0 ? Math.round((doneCount / totalCount) * 100) : 0;
+        
+        // Calculate SVG circular stroke offset
+        const radius = 22;
+        const circ = 2 * Math.PI * radius;
+        const offset = circ - (pct / 100) * circ;
+
+        const card = document.createElement('article');
+        card.className = 'track-card';
+        card.style.setProperty('--accent', track.accent);
+        card.innerHTML = `
+          <div class="track-top">
+            <div>
+              <div class="track-code">${track.code} · ${track.hours} hours</div>
+              <h3>${track.title}</h3>
+            </div>
+            <div class="ring" aria-label="${pct}% complete">
+              <svg>
+                <circle class="ring-bg" cx="26" cy="26" r="${radius}"></circle>
+                <circle class="ring-fill" cx="26" cy="26" r="${radius}" 
+                        style="stroke-dasharray: ${circ}; stroke-dashoffset: ${offset};"></circle>
+              </svg>
+              <div class="ring-text">${pct}%</div>
+            </div>
+          </div>
+          <p>${track.summary}</p>
+          <div class="tags">
+            ${track.tags.map(tag => `<span class="tag">${tag}</span>`).join('')}
+          </div>
+        `;
+        grid.appendChild(card);
+      });
+    }
+
+    // 4. Render Accordion Modules List
+    function renderModules() {
+      const list = document.getElementById('moduleList');
+      list.innerHTML = '';
+
+      const query = document.getElementById('searchInput').value.trim().toLowerCase();
+      const selectedTrack = document.getElementById('trackFilter').value;
+      const selectedLevel = document.getElementById('levelFilter').value;
+
+      let matchCount = 0;
+
+      tracks.forEach((track, trackIdx) => {
+        // Filter track
+        if (selectedTrack !== 'all' && `t${trackIdx + 1}` !== selectedTrack) return;
+
+        track.modules.forEach((mod, modIdx) => {
+          const modId = getModuleId(trackIdx, modIdx);
+          const isDone = state.completed.has(modId);
+          const isOpen = state.openModule === modId;
+
+          // Filter by Level
+          if (selectedLevel !== 'all' && mod.level !== selectedLevel) return;
+
+          // Filter by Search Query
+          const contentHaystack = [
+            track.title,
+            mod.title,
+            mod.concept,
+            mod.exercise,
+            mod.question,
+            mod.level
+          ].join(' ').toLowerCase();
+
+          if (query && !contentHaystack.includes(query)) return;
+
+          matchCount++;
+
+          const card = document.createElement('article');
+          card.className = `module-card ${isDone ? 'done' : ''} ${isOpen ? 'open' : ''}`;
+          card.style.setProperty('--accent', track.accent);
+          card.innerHTML = `
+            <div class="module-head" data-id="${modId}">
+              <div class="module-num">${modIdx + 1}</div>
+              <div class="module-title">
+                <b>${mod.title}</b>
+                <span>${track.code} · ${track.title}</span>
+              </div>
+              <div class="level-badge ${mod.level.toLowerCase()}">${mod.level}</div>
+              <button class="check-btn ${isDone ? 'completed' : ''}" data-chk="${modId}">
+                ${isDone ? '✓ Completed' : 'Mark Complete'}
+              </button>
+            </div>
+            <div class="module-body" style="max-height: ${isOpen ? '2500px' : '0'};">
+              <div class="module-content-inner">
+                <div class="tabs">
+                  <button class="tab-trigger active" data-tab-btn="${modId}-concept">Concept Deep Dive</button>
+                  <button class="tab-trigger" data-tab-btn="${modId}-exercise">Practical Exercise</button>
+                  <button class="tab-trigger" data-tab-btn="${modId}-interview">Interview Q&amp;A</button>
+                </div>
+                
+                <div class="tab-content active rich-content" id="${modId}-concept">
+                  ${mod.concept}
+                </div>
+                
+                <div class="tab-content rich-content" id="${modId}-exercise">
+                  ${mod.exercise}
+                </div>
+                
+                <div class="tab-content rich-content" id="${modId}-interview">
+                  <h4>Practice Question</h4>
+                  <p><strong>${mod.question}</strong></p>
+                  <div class="answer-box">
+                    <span class="badge">Model STAR Answer (Director Altitude)</span>
+                    <p>${mod.answer}</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          `;
+          list.appendChild(card);
+        });
+      });
+
+      if (matchCount === 0) {
+        list.innerHTML = `
+          <div class="panel" style="text-align: center; padding: 40px 20px;">
+            <p style="color: var(--text-sec); font-size: 15px;">No modules match your current filters. Try resetting search parameters.</p>
+          </div>
+        `;
+      }
+    }
+
+    // 5. Update Readiness Score Gauge and Competency Bars
+    function updateReadinessDashboard() {
+      const allMods = tracks.flatMap((track, trackIdx) => 
+        track.modules.map((_, modIdx) => getModuleId(trackIdx, modIdx))
+      );
+      
+      const totalCount = allMods.length;
+      const doneCount = allMods.filter(id => state.completed.has(id)).length;
+      const pct = totalCount > 0 ? Math.round((doneCount / totalCount) * 100) : 0;
+
+      // Update Sidebar progress details
+      document.getElementById('sideProgressFill').style.width = `${pct}%`;
+      document.getElementById('sideProgressPct').textContent = `${pct}%`;
+      document.getElementById('sideProgressFraction').textContent = `${doneCount} / ${totalCount} modules`;
+
+      // Update Readiness Gauge SVG ring
+      const radius = 85;
+      const circ = 2 * Math.PI * radius;
+      const offset = circ - (pct / 100) * circ;
+      const gauge = document.getElementById('readinessGauge');
+      if (gauge) {
+        gauge.style.strokeDasharray = `${circ}`;
+        gauge.style.strokeDashoffset = `${offset}`;
+      }
+      document.getElementById('readinessScore').textContent = `${pct}%`;
+
+      // Calculate progress details per Competency group
+      const competencyMap = {};
+      tracks.forEach(track => {
+        if (!competencyMap[track.competency]) {
+          competencyMap[track.competency] = { total: 0, done: 0, color: track.accent };
+        }
+        competencyMap[track.competency].total += track.modules.length;
+      });
+
+      tracks.forEach((track, trackIdx) => {
+        track.modules.forEach((_, modIdx) => {
+          if (state.completed.has(getModuleId(trackIdx, modIdx))) {
+            competencyMap[track.competency].done++;
+          }
+        });
+      });
+
+      // Render competency rows
+      const compBars = document.getElementById('competencyBars');
+      compBars.innerHTML = '';
+      Object.entries(competencyMap).forEach(([name, data]) => {
+        const compPct = data.total > 0 ? Math.round((data.done / data.total) * 100) : 0;
+        const row = document.createElement('div');
+        row.className = 'bar-row';
+        row.innerHTML = `
+          <div class="bar-label">${name}</div>
+          <div class="bar-track">
+            <div class="bar-fill" style="width: ${compPct}%; background: ${data.color};"></div>
+          </div>
+          <div class="bar-val">${compPct}%</div>
+        `;
+        compBars.appendChild(row);
+      });
+    }
+
+    // 6. Render Interview Prep Room Flashcards
+    let currentInterviewLens = 'all';
+
+    function renderInterviewPrep() {
+      const grid = document.getElementById('interviewGrid');
+      grid.innerHTML = '';
+
+      interviews.forEach((item, index) => {
+        if (currentInterviewLens !== 'all' && item.lens !== currentInterviewLens) return;
+
+        const wrapper = document.createElement('div');
+        wrapper.className = 'prep-card-wrapper';
+        wrapper.dataset.index = index;
+        wrapper.innerHTML = `
+          <article class="prep-card">
+            <div class="prep-front">
+              <div class="prep-lens">
+                <span>${item.lens} Lens</span>
+                <span class="stars">${item.difficulty}</span>
+              </div>
+              <h3>${item.question}</h3>
+              <div class="prep-asset">
+                <strong>Profile Asset:</strong> ${item.asset}
+              </div>
+              <div class="flip-hint">Click to show model answer ⟳</div>
+            </div>
+            <div class="prep-back">
+              <div class="prep-lens">
+                <span>${item.lens} Answer</span>
+              </div>
+              <h4>STAR Response</h4>
+              <p>${item.answer}</p>
+              <div class="flip-hint" style="margin-top: auto;">Click to view question ⟳</div>
+            </div>
+          </article>
+        `;
+        grid.appendChild(wrapper);
+      });
+    }
+
+    // ══════════════ EVENT DELEGATION & LIFECYCLE ══════════════
+
+    // Module item click actions (accordion open + tab switches + mark done)
+    document.getElementById('moduleList').addEventListener('click', e => {
+      const head = e.target.closest('.module-head');
+      const chk = e.target.closest('[data-chk]');
+      const tab = e.target.closest('[data-tab-btn]');
+
+      if (chk) {
+        e.stopPropagation();
+        const modId = chk.dataset.chk;
+        if (state.completed.has(modId)) {
+          state.completed.delete(modId);
+        } else {
+          state.completed.add(modId);
+        }
+        saveState();
+        renderTrackDashboard();
+        renderModules();
+        updateReadinessDashboard();
+      } else if (head) {
+        const id = head.dataset.id;
+        state.openModule = state.openModule === id ? null : id;
+        renderModules();
+      } else if (tab) {
+        const tabId = tab.dataset.tabBtn;
+        const parentCard = tab.closest('.module-card');
+        
+        // Clear active triggers
+        parentCard.querySelectorAll('.tab-trigger').forEach(btn => btn.classList.remove('active'));
+        // Hide active contents
+        parentCard.querySelectorAll('.tab-content').forEach(cont => cont.classList.remove('active'));
+
+        // Activate clicked
+        tab.classList.add('active');
+        document.getElementById(tabId).classList.add('active');
+      }
+    });
+
+    // Reset Progress handler
+    document.getElementById('resetBtn').addEventListener('click', () => {
+      if (confirm('Are you sure you want to clear your study progress? This will reset all complete marks.')) {
+        state.completed.clear();
+        saveState();
+        renderTrackDashboard();
+        renderModules();
+        updateReadinessDashboard();
+      }
+    });
+
+    // Search and filters triggers
+    document.getElementById('searchInput').addEventListener('input', renderModules);
+    document.getElementById('trackFilter').addEventListener('change', renderModules);
+    document.getElementById('levelFilter').addEventListener('change', renderModules);
+
+    // Interview filters triggers
+    document.getElementById('interviewFilters').addEventListener('click', e => {
+      const btn = e.target.closest('[data-lens]');
+      if (btn) {
+        document.querySelectorAll('.int-filter-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        currentInterviewLens = btn.dataset.lens;
+        renderInterviewPrep();
+      }
+    });
+
+    // Flip interview card click
+    document.getElementById('interviewGrid').addEventListener('click', e => {
+      const wrapper = e.target.closest('.prep-card-wrapper');
+      if (wrapper) {
+        wrapper.classList.toggle('flipped');
+      }
+    });
+
+    // Initial setup and render sequence
+        // Master prompts database
+    const masterPrompts = {
+  "p1": "Act as a team of the world's foremost UX Architecture authorities: Peter Morville (Information Architecture), Jared Spool (UX design at scale), Don Norman (Human-Centered Design), Jesse James Garrett (Elements of UX), and Luke Wroblewski (mobile-first enterprise design). You have been hired to create a comprehensive, interview-ready learning module on UX Architecture Foundations for a Principal UX Designer transitioning to Principal UX Architect level at Fortune 50 companies.\n\nSTUDENT PROFILE:\n- 16+ years enterprise UX design at Providence Global Center (healthcare)\n- CUA (Certified Usability Analyst) from HFI, IIT Bombay Design Thinking\n- Expert in WCAG 2.2 AA, Figma, enterprise design systems\n- Gap: needs architect-level command of information architecture, navigation taxonomy, scalability patterns, and systems-level design thinking\n\nCREATE THE FOLLOWING 6 MODULES. Each module must include:\n(A) Concept explanation at Director-interview depth \u2014 not beginner, not academic \u2014 practical and defensible in a room with a VP Engineering\n(B) 3 real-world enterprise examples (one must be from healthcare, regulated industry, or enterprise SaaS)\n(C) A practical exercise the student can complete in Figma or on paper within 2 hours\n(D) 3 interview questions that a VP of Design at Microsoft or Google would ask about this topic, with full STAR-format model answers\n(E) The top 3 mistakes Principal-level designers make and how to avoid them\n\nMODULE LIST:\n1. Enterprise Information Architecture Patterns (hub-and-spoke, mega nav, faceted classification, progressive disclosure at enterprise scale)\n2. Navigation Taxonomy Design for 50+ Feature Products (building scalable nav systems that survive 3 product generations)\n3. Content Hierarchy & Mental Model Alignment (how to map user mental models to IA, card sorting at scale, tree testing methodology)\n4. UX Systems Thinking (how to design interconnected UX systems vs. isolated features; dependency mapping; design coherence across 10+ teams)\n5. Accessibility-First IA (WCAG 2.2 conformance at the architecture level; ARIA landmark patterns; keyboard navigation taxonomy)\n6. Architecture Decision Records for UX (ADR methodology adapted for design; how to document and defend architectural UX decisions to engineering and product leadership)\n\nQUALITY CONSTRAINTS:\n- Never use filler phrases like \"it's important to note\" or \"in conclusion\"\n- Every framework mentioned must include the full name, source author, and year\n- Every exercise must produce a tangible artifact the student can add to their portfolio\n- Interview answers must be 150-250 words each, using concrete metrics and named products\n- Each module must end with a \"What separates a designer from an architect on this topic\" insight paragraph\n\nFORMAT:\nOutput as structured HTML-ready content with clear H2/H3 headings, bullet lists, code-style blocks for exercises, and a \"module summary card\" at the end of each module that can be directly inserted into a course website.",
+  "p2": "Act as a panel of enterprise design system authorities: Nathan Curtis (EightShapes \u2014 design system governance), Brad Frost (Atomic Design methodology), Soren Louv-Jansen (MUI design tokens), and Diana Mounter (GitHub Primer design system). Create a comprehensive, architect-level learning module on Visual Design Systems for a Principal UX Architect candidate.\n\nSTUDENT CONTEXT: 16+ years enterprise UX, expert Figma user, has led the Providence Global Center design system (healthcare enterprise). Target: Principal UX Architect at Microsoft, Google, Anthropic, or Amazon. Gap: needs to move from \"advanced practitioner\" to \"system architect who can design and govern a multi-brand, cross-platform token architecture.\"\n\nCREATE 6 MODULES:\n\n1. Design Token Architecture (DTCG Format)\n- W3C Design Token Community Group (DTCG) specification\n- Token taxonomy: primitive \u2192 semantic \u2192 component tokens\n- Multi-brand and multi-theme token hierarchy\n- Figma Variables as token implementation layer\n- JSON/YAML token schemas; Style Dictionary pipeline\n- Exercise: Design a 3-tier token architecture for a healthcare enterprise product in Figma Variables\n\n2. Multi-Brand Theming Systems\n- Brand token override architecture (white-labeling at scale)\n- Semantic aliasing strategies for multi-product companies\n- Dark/light mode + high-contrast mode as systematic token dimensions\n- Providence Health example: how to build a system that serves both patient-facing and clinical-facing surfaces from one token foundation\n- Interview Q: \"How would you architect a token system that serves 5 brands with different visual identities but shared components?\"\n\n3. Material Design 3 & HIG Mastery at Scale\n- Material You dynamic color algorithm and its enterprise limitations\n- HIG adaptation for enterprise (where Apple's guidance breaks for business software)\n- How Google and Apple design systems handle scale vs. expressiveness\n- The principled tradeoffs between strict adherence and enterprise customization\n\n4. Motion Design Architecture\n- Motion as a design system layer: token-driven animation (duration, easing, choreography)\n- Material Motion principles vs. Apple's spring-based philosophy\n- Reduced-motion accessibility (prefers-reduced-motion) as a first-class token\n- When to use Lottie vs. CSS vs. Rive for enterprise products\n- Exercise: Write a motion spec document for a healthcare dashboard using token-driven animation values\n\n5. Component Architecture for Enterprise Scale\n- Compound component patterns (headless components)\n- Polymorphic component design (the \"as\" prop pattern)\n- API design for design system components: prop naming conventions, variant taxonomy\n- Storybook as living documentation \u2014 what architects must enforce vs. leave to teams\n- The \"escape hatch\" problem: when teams customize beyond the system\n\n6. Design System Governance Architecture\n- Centralized vs. federated vs. hybrid contribution models\n- Design system versioning strategy (semver for design)\n- Breaking change management and migration guide authoring\n- Design system roadmap and OKR alignment\n- How to measure design system adoption (design system ROI metrics)\n\nFor EACH MODULE provide:\n(A) Concept at VP-interview depth with real enterprise examples\n(B) A Figma-based exercise producing a portfolio artifact\n(C) 3 interview questions with full model answers (150-250 words each)\n(D) \"Architect vs. Practitioner\" insight: what separates the two on this topic\n\nFORMAT: HTML-ready structured content, ready to paste into a course website section.",
+  "p3": "Act as a research authority panel including: Jakob Nielsen (usability research), Tony Ulwick (Jobs-to-be-Done), Erika Hall (Just Enough Research), Dave Hora (ResearchOps), and Kim Goodwin (design and research integration). Create an architect-level UX research curriculum for a Principal UX Architect candidate who needs to commission, evaluate, and defend research strategy at the Director level \u2014 not just conduct research personally.\n\nSTUDENT CONTEXT: CUA certified, 16+ years enterprise UX, Providence healthcare. Gap: needs to transition from \"researcher who does the work\" to \"architect who designs the research infrastructure and defends methodology choices to product leadership.\"\n\nCREATE 7 MODULES:\n\n1. Research Strategy Architecture\n- Designing a research roadmap that aligns to product roadmap quarters\n- The research stack: generative (discovery) \u2192 evaluative (testing) \u2192 validative (post-launch) \u2014 how to right-size each for an enterprise org\n- Research question taxonomy: strategic, tactical, behavioral, attitudinal\n- How to present a research strategy to a CPO or VP Product\n\n2. Mixed-Methods Design\n- When qualitative is sufficient vs. when you need statistical confidence\n- Sequential explanatory design: qual \u2192 quant pipeline\n- Triangulation: combining interview themes with behavioral analytics\n- The \"n=5\" myth debunked: sample size by research goal type\n- Exercise: Design a research plan for a Providence EHR feature launch using at least 3 methods in sequence\n\n3. JTBD Interview Mastery at Scale\n- Clayton Christensen's original JTBD framework + Tony Ulwick's Outcome-Driven Innovation extension\n- Conducting switch interviews: the 4-stage emotional arc (first thought \u2192 deciding moment \u2192 first use \u2192 ongoing use)\n- Coding JTBD transcripts into outcome statements\n- How JTBD replaces personas for B2B enterprise products (why clinical staff personas fail)\n\n4. Quantitative Research Methods for Designers\n- SUS (System Usability Scale): scoring, benchmarking against industry scores, sensitivity to change\n- CSAT and NPS: calculating statistical significance on pre/post redesign scores\n- Task success rate analysis: binomial confidence intervals without R/Python (the arcsin method)\n- Survey design for enterprise: Likert scale construction, question ordering bias, response rate optimization\n\n5. Usability Test Architecture\n- Moderating high-stakes tests (C-suite stakeholders watching live)\n- Unmoderated testing at scale: Maze vs. UserTesting vs. Optimal Workshop for enterprise\n- Formative vs. summative testing: what to test at each PDLC phase\n- Accessibility-inclusive recruitment: recruiting participants with disabilities for healthcare products\n- Exercise: Write a full usability test protocol for a healthcare dashboard redesign (screener, moderator guide, metrics plan, report template)\n\n6. ResearchOps Architecture\n- Building a research repository in Notion/Dovetail: taxonomy, tagging schema, retrieval design\n- Research democratization: training PMs and engineers on lightweight methods without lowering quality\n- Participant panel management for enterprise healthcare (HIPAA-compliant recruitment)\n- Measuring ResearchOps maturity: the ORF ResearchOps maturity model\n\n7. Research Impact and Executive Communication\n- Translating research findings into product decisions (not just recommendations)\n- The \"so what\" test: how to frame research for a business case\n- Research dashboards: what metrics to track for a research practice's health\n- How to handle executive overrides of research findings (stakeholder management in research)\n\nFor EACH MODULE:\n(A) Concept at Director-interview depth, no textbook definitions\n(B) 1 healthcare-specific enterprise example per module\n(C) 3 interview questions with 150-250 word model answers\n(D) Architect vs. Practitioner distinction\n(E) One counter-intuitive insight that separates top 1% researchers from the rest",
+  "p4": "Act as the world's foremost enterprise design system authorities: Nathan Curtis (design system strategy), Jina Anne (design tokens pioneer), Kaelig Deloumeau-Prigent (Salesforce Lightning creator), Diana Mounter (GitHub Primer), and Hayley Hughes (enterprise design system leadership). Build an architect-level course track on Design Systems at Scale for a Principal UX Architect candidate with existing enterprise design system leadership experience.\n\nSTUDENT CONTEXT: Led the Providence Global Center design system (healthcare enterprise, 15-20 person organization). Has experience with WCAG 2.2 AA, Figma, component governance. Target: architect-level command of multi-product design system strategy, governance, and ROI argumentation for VP/Director interview panels at Fortune 50 companies.\n\nCREATE 8 MODULES:\n\n1. Design System Maturity Model\n- Design System Institute maturity framework (1-5 levels)\n- How to honestly self-assess your org's maturity and why most orgs over-report\n- Maturity assessment exercise: score the Providence design system across 8 dimensions\n- What Fortune 50 companies expect: Microsoft Fluent, Google Material, Apple HIG, and Salesforce Lightning maturity benchmarks\n\n2. Governance Architecture: Centralized vs. Federated vs. Hybrid\n- The three contribution models with real org examples (Spotify, Airbnb, Salesforce)\n- When each model is appropriate: team size, product count, maturity thresholds\n- The \"inner source\" model for design systems: treating the DS as an open-source product within the enterprise\n- How to handle governance in a globally distributed org (Providence has teams in Hyderabad + US)\n\n3. Design System Versioning & Breaking Changes\n- Applying semantic versioning (semver) to design systems\n- What constitutes a breaking change in a design system (visual vs. behavioral vs. API)\n- Writing migration guides that engineers will actually use\n- Deprecation strategy: how to retire components without breaking 47 consuming products\n- The \"strangler fig\" pattern for design system migration\n\n4. Design System API Design\n- Component prop taxonomy: what to name, how to type, what to expose\n- The headless component pattern and when to use it (Radix, Headless UI)\n- Compound components for complex UI patterns (Select, DatePicker, DataTable)\n- Accessibility as a first-class API concern (ARIA props, keyboard contract specification)\n\n5. Multi-Product & Multi-Platform Design Systems\n- How to serve Web, iOS, Android, and Desktop from one design system\n- Design token adaptation per platform: what changes, what doesn't\n- The React Native / Web shared component challenge\n- Case study: How Microsoft Fluent 2 solved multi-platform token distribution\n\n6. Design System Documentation Architecture\n- ZeroHeight vs. Storybook vs. Notion for DS docs: when to use what\n- Writing component documentation that developers won't ignore\n- \"Do / Don't\" content strategy for usage guidelines\n- Anatomy diagrams and prop tables in Figma + code\n\n7. Design System ROI and Business Case\n- Measuring design system adoption rate (design token coverage %)\n- Calculating component reuse rate and engineering hours saved\n- Building the business case for a design system investment to a CFO\n- Design system OKRs: what to measure and how to report to product leadership\n\n8. Providence Design System \u2014 Case Study Deconstruction\n- How to frame the Providence DS work as a Principal-level portfolio story\n- The IMPACT framework applied: context, initiative, method, action, product, transformation\n- What to show, what to omit, and how to answer \"tell me about a design system challenge\" using this case study\n- Figma portfolio presentation script (what to say at each slide for a Director-level interview)\n\nDELIVERABLES PER MODULE:\n(A) Concept explanation at VP-interview depth\n(B) Figma-executable exercise producing a portfolio artifact\n(C) 3 interview questions with 200-word model answers\n(D) Architect vs. Practitioner distinction\n(E) The one governance failure mode that derails even experienced design system leads \u2014 and how to prevent it",
+  "p5": "Act as a panel of design leadership authorities: Aarron Walter (design leadership, InVision), Peter Merholz (org design for design), Kim Goodwin (Designing for the Digital Age \u2014 organizational integration), Kate Aronowitz (VP Design at Google Ventures), and Dave Hoffer (DesignOps). Build a design strategy and leadership curriculum for a Principal UX Designer transitioning to Director/VP level.\n\nSTUDENT CONTEXT: Currently leads design for Providence Global Center (15-20 person team, enterprise healthcare). Has Duke Executive PG in AI/ML, Digital Transformation, Growth PM. Target: Principal UX Architect or Associate UX Director at Fortune 50 companies. Critical gap: transitioning from \"head of design for one org\" to \"architect of design strategy, processes, and influence at enterprise scale.\"\n\nCREATE 6 MODULES:\n\n1. Design Org Architecture Models\n- Centralized, embedded, federated, and hybrid design org structures\n- When to choose each: product count, team maturity, company stage\n- How Microsoft, Airbnb, Spotify, and Google have structured their design orgs\n- The \"design org ratio\" benchmarks: 1 designer per N engineers across company stages\n- Exercise: Draw the org chart for a 50-person design org at a 5,000-person enterprise\n\n2. DesignOps Maturity Architecture (DMI Framework)\n- The Design Management Institute DesignOps maturity model\n- 5 maturity levels: ad-hoc \u2192 defined \u2192 repeatable \u2192 managed \u2192 optimizing\n- How to conduct a DesignOps audit of your current org\n- Building a DesignOps roadmap and presenting it to a VP of Product\n- The DesignOps team function: what it owns vs. what design practice owns\n\n3. OKR Writing for Design Organizations\n- How to write OKRs that are measurable for design (not vanity metrics)\n- Design-specific KR examples: SUS score improvement, design system adoption %, accessibility compliance rate, research velocity\n- Aligning design OKRs to engineering and product OKRs (the dual-track alignment problem)\n- Quarterly design review: how to present design performance to a CPO\n\n4. Executive Influence and Design Advocacy\n- The \"designer at the table\" problem: how to get and keep executive influence\n- Building a design strategy presentation for a C-suite audience (10 slides, 20 minutes)\n- Wardley Mapping for UX strategy: identifying where design capability creates competitive advantage\n- The McKinsey Three Horizons model applied to design investment (core, adjacent, transformational)\n\n5. Design Metrics Architecture\n- The design metrics stack: experience quality, delivery velocity, business impact\n- NPS vs. CSAT vs. SUS vs. HEART framework \u2014 when to use which\n- Google's HEART Framework (Happiness, Engagement, Adoption, Retention, Task Success) at enterprise scale\n- Building a design dashboard that a CFO will read: connecting design metrics to revenue metrics\n\n6. Cross-Functional Design Leadership\n- Design x Engineering partnership: DORA metrics awareness for designers\n- Design x Product Management: when to challenge and when to align\n- Design x Research: structuring the researcher-designer relationship\n- Managing up: how to handle a VP who overrides design decisions with data and influence rather than argument\n- Conflict resolution in design leadership: the \"disagree and commit\" principle and when NOT to commit\n\nDELIVERABLES PER MODULE:\n(A) Concept at VP-interview depth with Fortune 50 examples\n(B) 1 practical exercise (Miro/Figma/Notion template)\n(C) 3 Director-level interview questions with 200-word model answers\n(D) The one leadership mistake that stops senior IC designers from reaching Director level \u2014 specific to this module's topic\n(E) A template or framework the student can use in their first 30 days in a new Director role",
+  "p6": "Act as a panel of AI + UX design thought leaders: Kat Holmes (Microsoft Inclusive Design \u2014 AI edition), Josh Clark (Big Medium \u2014 AI design patterns), Molly Flood (UX for AI products), and Anthropic's design team philosophy on safe, useful AI interfaces. Build an architect-level course on AI-Augmented UX Design for a Principal UX Designer who already uses Figma Make, Claude AI, and Google Stitch in production workflows.\n\nSTUDENT CONTEXT: Principal UX Designer at Providence Global Center, actively using Figma Make, Claude AI, and Google Stitch. Duke Executive PG in AI/ML. Target: Principal UX Architect who can lead the AI design strategy for an enterprise organization, not just use AI tools personally.\n\nCREATE 5 MODULES:\n\n1. AI-Native Design Workflow Architecture\n- How to build a systematic AI workflow for design teams (not ad-hoc tool usage)\n- Figma Make: advanced use cases beyond basic generation \u2014 iteration loops, component generation from design tokens, accessibility checking automation\n- Claude AI + Figma MCP: pulling component data, generating specs, automated design QA\n- Google Stitch: UI generation pipeline and when to use vs. when to design from scratch\n- Exercise: Document your current AI-augmented workflow as a replicable process map (swimlane diagram) that another designer can follow\n\n2. Prompt Engineering for Designers\n- Prompt anatomy for design tasks: role priming, context loading, constraint setting, output formatting\n- The \"design brief as prompt\" framework: how to write a brief that an AI can execute\n- Multi-turn prompting for iterative design critique\n- Few-shot prompting: giving AI examples of \"good design\" for your specific domain\n- Prompt library architecture: building a team prompt library in Notion for design operations\n- Exercise: Write 10 reusable prompts for your most common design tasks (component spec, accessibility audit, UX copy, competitive analysis) and publish to Notion\n\n3. Ethical AI UX Design Patterns\n- The 6 ethical AI design principles: transparency, control, privacy, fairness, safety, accountability\n- Dark pattern recognition in AI products: how to identify and prevent manipulative AI UX\n- AI hallucination patterns in UX: how to design interfaces that handle AI error states gracefully\n- Explainable AI (XAI) design: making AI decisions interpretable to non-technical users\n- Healthcare AI UX: HIPAA-compliant AI feature design patterns; FDA SaMD (Software as Medical Device) UX considerations\n- Bias in AI outputs: how to design research and testing protocols that surface AI bias\n\n4. Designing AI-Native Products (Not Just Adding AI Features)\n- The \"wrapper vs. native\" distinction: when AI is a feature vs. when it's the product\n- AI interaction patterns: streaming responses, progressive disclosure of AI confidence, graceful degradation\n- Mental model design for AI: how to help users develop accurate expectations of AI capability and limitations\n- AI onboarding design: teaching users how to prompt effectively within your product interface\n- The feedback loop design pattern: capturing user corrections to improve AI models over time\n\n5. AI Design Critique and Quality Assessment\n- How to evaluate AI-generated design output: a structured critique framework\n- When to accept, iterate, or reject AI design suggestions\n- Running AI design QA: using Claude vision to compare Figma mockups to implementation\n- Building an \"AI contribution changelog\" for design: attribution and version control in AI-assisted work\n- Presenting AI-augmented work in interviews: how to frame AI assistance without diminishing your expertise\n- The architecture decision: what to automate with AI and what to keep human-led in your design practice\n\nDELIVERABLES PER MODULE:\n(A) Concept at Director-interview depth \u2014 not \"AI is the future\" generalities, specific workflows\n(B) A replicable workflow or template artifact per module\n(C) 3 interview questions about AI design that Fortune 50 hiring managers are asking right now (2025-2026), with model answers\n(D) How AI changes the architect vs. practitioner distinction on this topic\n(E) A \"red flag\" list: AI design patterns that would immediately disqualify a Principal-level candidate",
+  "p7": "Act as the most rigorous Principal UX Architect / UX Director interview preparation system ever designed. You are drawing on: insider knowledge of Google's design hiring process, Microsoft's design loop structure, Amazon's leadership principles assessment, Anthropic's values-based hiring, and the academic rigor of the NN/g certification interview process.\n\nBuild a complete interview mastery curriculum for Anurag Challapalli \u2014 a Principal UX Designer at Providence Global Center with 16+ years experience, CUA certification, enterprise design system leadership, and AI tool integration expertise \u2014 targeting Principal UX Architect / Associate UX Director roles at Fortune 50 companies.\n\nSTUDENT'S STORY ASSETS (use these in model answers):\n- Led enterprise design system for Providence Global Center (healthcare, 15-20 person team)\n- No NDA restrictions on Providence work \u2014 can show real case studies\n- 3 years leading ATS/PS&D job portal UX (workforce/HR enterprise)\n- AI tool integration in production: Figma Make, Claude AI, Google Stitch\n- WCAG 2.2 AA accessibility compliance leadership\n- CUA (HFI), IIT Bombay Design Thinking, Duke Executive PG (AI/ML + Growth PM)\n- Published author: \"Flames of the Moon\" (systems thinking metaphor)\n\nCREATE 10 MODULES:\n\nMODULE 1 \u2014 CEO Lens Questions (8 questions + model answers)\nFocus: Design as business value, ROI of design investment, competitive differentiation through design, design as revenue driver. CEO interviewers don't care about Figma \u2014 they care about business outcomes. Answer framework: Business context \u2192 design decision \u2192 measurable business result.\n\nMODULE 2 \u2014 CTO/VP Engineering Lens Questions (8 questions + model answers)\nFocus: Technical feasibility of design decisions, design system as engineering infrastructure, accessibility compliance requirements, design + engineering velocity. These interviewers will probe whether you understand implementation constraints. Use: WCAG implementation patterns, Figma-to-code handoff, design token pipeline.\n\nMODULE 3 \u2014 VP of Product/CPO Lens Questions (8 questions + model answers)\nFocus: Design + product roadmap alignment, research informing product decisions, UX debt vs. feature velocity tradeoffs, design's role in OKR planning. Reference: RICE prioritization, dual-track agile, discovery vs. delivery.\n\nMODULE 4 \u2014 VP of Design / Design Director Lens Questions (8 questions + model answers)  \nFocus: Design philosophy, portfolio critique, architecture decision making, team building, design culture. These interviewers are your professional peers \u2014 they will probe for depth, taste, and architectural thinking. Be specific about system decisions and why.\n\nMODULE 5 \u2014 Behavioral/Leadership Questions (10 questions + model answers)\nFocus: Amazon Leadership Principles format \u2014 ownership, bias for action, customer obsession, invent and simplify, hire and develop the best. Format: STAR (Situation, Task, Action, Result) with real Providence examples. Each answer 200-300 words.\n\nMODULE 6 \u2014 Design System Deep Dive (8 questions + model answers)\nFocus: Every aspect of the Providence design system \u2014 architecture decisions, governance model, token structure, component API design, adoption strategy, success metrics. These are the questions where Anurag's hands-on experience becomes the differentiator.\n\nMODULE 7 \u2014 Whiteboard Challenge Preparation (5 challenge scenarios + frameworks)\n- 45-minute architecture challenge (redesign a complex enterprise workflow)\n- 20-minute \"blank page\" exercise (design a healthcare feature from scratch)\n- Design critique exercise (what would you change and why)\n- System design for UX (how would you design the UX layer for a given technical system)\n- Data-informed design: here's the analytics \u2014 what do you do next?\nFor each: step-by-step thinking process, time allocation, what the interviewer is scoring\n\nMODULE 8 \u2014 Portfolio Walkthrough Script (for 5 case studies)\n- 7-minute case study walkthrough template\n- How to handle \"what would you do differently?\" on live work\n- How to present AI-augmented work without reducing your expertise\n- Providence DS case study: exact talking points, what to show, what to skip\n- Handling accessibility questions: turn WCAG expertise into an authority signal\n\nMODULE 9 \u2014 Difficult Questions and Failure Handling (8 Q+A)\n- \"Tell me about a design decision that failed\"\n- \"Tell me about a time you pushed back on a product requirement\"\n- \"How do you handle a stakeholder who overrides your design with no data?\"\n- \"What's the biggest design mistake you've made?\"\nFormat: Vulnerability without weakness \u2014 show learning, growth, and architectural maturity.\n\nMODULE 10 \u2014 Offer Evaluation and Negotiation\n- Compensation benchmarks: Principal UX Architect / UX Director at Microsoft, Google, Anthropic, Amazon India + global\n- TC (total compensation) breakdown: base, RSU, bonus, benefits\n- How to evaluate offer fit beyond salary: design team maturity, reporting structure, tech stack, runway\n- Negotiation scripts: 5 exact phrases to use in an offer conversation\n- The counter-offer playbook: how to use competing offers ethically\n\nOUTPUT FORMAT: \nEach Q&A must include: the question exactly as a hiring manager would ask it, difficulty rating (\u2b50\u2b50\u2b50\u2013\u2b50\u2b50\u2b50\u2b50\u2b50), Anurag's profile asset to leverage, and a model answer of 150-300 words using his real experience. Tag every answer with the interviewer lens.",
+  "p8": "Act as a panel of the world's most respected design portfolio evaluators and career coaches: Jeffrey Veen (true design portfolio philosophy), Kim Goodwin (portfolio review standards for senior designers), Julie Zhuo (design leadership portfolio expectations from a VP perspective), and the hiring committee leads from Google, Microsoft, and Anthropic's design teams.\n\nBuild a complete Portfolio Architecture curriculum for Anurag Challapalli \u2014 a Principal UX Designer at Providence Global Center with 16+ years enterprise healthcare UX experience, no NDA restrictions on showing Providence work, and a critical need to rebuild his Behance portfolio (currently showing outdated title and no healthcare case studies).\n\nANURAG'S PORTFOLIO ASSETS (to be transformed):\n- Providence Global Center design system (enterprise healthcare, 15-20 team)\n- ATS/PS&D job portal UX redesign (workforce management, measurable impact)\n- Providence patient-facing app UX (regulated healthcare, WCAG 2.2 AA)\n- EHR clinical workflow UX improvements (complex enterprise workflow design)\n- AI-augmented design workflow (Figma Make + Claude + Google Stitch)\n- UX research leadership: 3+ research initiatives with measurable outcomes\n- Accessibility remediation project (WCAG 2.2 AA compliance at enterprise scale)\n\nCURRENT PORTFOLIO PROBLEM:\nBehance shows \"Senior Technical Lead UI/UX\" title (wrong), \"7 years experience\" (wrong \u2014 16+ years), no Providence or healthcare work, no design system case studies, and 6 outdated projects that should be archived or replaced.\n\nCREATE 7 MODULES:\n\n1. Portfolio Strategy for Principal-Level Roles\n- What a Principal UX Architect portfolio must prove (vs. what a Senior Designer's portfolio proves)\n- The 3 questions every Principal-level portfolio must answer: Can you architect? Can you lead? Can you measure?\n- Case study count and depth: 5-7 deep case studies vs. 20 shallow projects\n- Platform strategy: Behance as discovery + GitHub Pages as depth \u2014 the dual-platform approach\n- What Fortune 50 hiring managers look for in 30 seconds (the scroll test)\n\n2. The IMPACT Case Study Framework\n- I \u2014 Industry context and business problem scale\n- M \u2014 Methods used (research, design process, tools)\n- P \u2014 Problem definition (user + business + technical constraints)\n- A \u2014 Architecture decisions made and why (the key differentiator for Principal-level)\n- C \u2014 Craft (visual quality of the work shown)\n- T \u2014 Transformation: measurable before-and-after outcomes\n- Exercise: Apply IMPACT framework to map all 7 portfolio assets to a structured story outline\n\n3. Providence Design System Case Study\n- How to frame the Providence DS as a career-defining Principal-level story\n- Architecture decisions to foreground: token structure, governance model, accessibility approach, component API design\n- Metrics to surface: adoption rate, component reuse %, engineer hours saved, accessibility score improvement\n- Before/after visual comparison: what to show at each scroll point\n- Exact Behance layout spec: cover image, opening statement, process walkthrough, outcome summary\n\n4. Healthcare Enterprise UX Case Studies\n- How to present regulated-industry UX work without violating HIPAA (even without NDA)\n- The \"patient safety\" framing: how healthcare UX impacts lives (emotional and business credibility)\n- EHR workflow UX: how to present complex clinical workflow redesigns to non-clinical hiring managers\n- AI-assisted healthcare UX: presenting your Figma Make + Claude + Google Stitch workflow as a case study\n- WCAG 2.2 AA compliance case study: framing accessibility compliance as a Principal-level architecture decision\n\n5. Case Study Writing and Narrative Architecture\n- The first paragraph rule: every case study must hook in the first 100 words\n- The \"architect's lens\" narrative: don't show what you made \u2014 show the decisions you made and why\n- Writing for two audiences simultaneously: visual audience (scrolls) + reading audience (evaluates)\n- What to omit: everything that doesn't prove Principal-level capability (junior process artifacts)\n- The \"I vs. we\" problem: how to claim credit without erasing collaboration\n\n6. Portfolio Visual Design Architecture\n- Behance cover image design system: consistent visual language across all case studies\n- Dark editorial theme alignment: connecting your portfolio aesthetic to your personal brand\n- Mockup presentation: when device mockups help vs. hurt (and when to show raw design artifacts)\n- Typography in portfolio: establishing a personal typographic voice\n- Exercise: Design a cover image template and project thumbnail system for all 7 case studies\n\n7. Portfolio Publishing and Distribution Strategy\n- Behance SEO: titles, tags, and descriptions that surface in recruiter searches\n- GitHub Pages case study depth: the long-form case study version with full process documentation\n- LinkedIn portfolio section: how to link and frame the portfolio in your LinkedIn summary\n- Portfolio in applications: how to present it in a cover letter and application context\n- The \"portfolio update cadence\": when and how to keep it current as a Principal-level designer\n\nOUTPUT FORMAT:\nFor each module: concept content, a practical exercise producing a real deliverable, and a specific action item Anurag can complete this week toward rebuilding his Behance portfolio. Include a 30-day portfolio rebuild timeline at the end."
+};
+
+    // Prompt Library Controller
+    const promptSelect = document.getElementById('promptSelect');
+    const promptDisplay = document.getElementById('promptDisplay');
+    const copyPromptBtn = document.getElementById('copyPromptBtn');
+
+    function updatePromptDisplay() {
+      const key = promptSelect.value;
+      promptDisplay.textContent = masterPrompts[key] || '';
+    }
+
+    if (promptSelect) {
+      promptSelect.addEventListener('change', updatePromptDisplay);
+    }
+
+    if (copyPromptBtn) {
+      copyPromptBtn.addEventListener('click', () => {
+        const text = promptDisplay.textContent;
+        navigator.clipboard.writeText(text).then(() => {
+          const originalText = copyPromptBtn.textContent;
+          copyPromptBtn.textContent = '✓ Copied!';
+          copyPromptBtn.style.background = '#34D399';
+          setTimeout(() => {
+            copyPromptBtn.textContent = originalText;
+            copyPromptBtn.style.background = '';
+          }, 2000);
+        });
+      });
+    }
+    
+    updatePromptDisplay();
+
+    
+    renderFilters();
+    renderTrackDashboard();
+    renderModules();
+    updateReadinessDashboard();
+    renderInterviewPrep();
+  </script>
+</body>
+</html>
